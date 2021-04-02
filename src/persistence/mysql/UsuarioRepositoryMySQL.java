@@ -7,9 +7,7 @@ import java.util.ArrayList;
 
 public class UsuarioRepositoryMySQL implements IUsuarioRepository {
     @Override
-    public void addUser(Usuario usuario) {
-
-    }
+    public void addUser(Usuario usuario) { }
 
     @Override
     public Usuario getUser(String username) {
