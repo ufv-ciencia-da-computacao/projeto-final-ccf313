@@ -1,28 +1,40 @@
 package model;
 
+import java.util.List;
+
 public class Aula {
-    private Assunto assunto;
+    private int codAula;
+    private List<Topico> topicos;
+    private Disciplina disciplina;
     private Professor professor;
-    private double valor_hora;
+    private double valorHora;
     private String descricao;
 
-    public Aula(Assunto assunto, Professor professor, double valor_hora) {
-        this.assunto = assunto;
+    public Aula(List<Topico> topicos, Professor professor, double valorHora) {
+        this.topicos = topicos;
         this.professor = professor;
-        this.valor_hora = valor_hora;
+        this.valorHora = valorHora;
     }
 
-    public Aula(Assunto assunto, Professor professor, double valor_hora, String descricao) {
-        this(assunto, professor, valor_hora);
+    public Aula(List<Topico> topicos, Professor professor, double valorHora, String descricao) {
+        this(topicos, professor, valorHora);
         this.descricao = descricao;
     }
 
-    public Assunto getAssunto() {
-        return assunto;
+    public int getCodAula() {
+        return codAula;
     }
 
-    public void setAssunto(Assunto assunto) {
-        this.assunto = assunto;
+    public void setCodAula(int codAula) {
+        this.codAula = codAula;
+    }
+
+    public List<Topico> getTopicos() {
+        return topicos;
+    }
+
+    public void setTopicos(List<Topico> topico) {
+        this.topicos = topico;
     }
 
     public Professor getProfessor() {
@@ -34,11 +46,11 @@ public class Aula {
     }
 
     public double getValor_hora() {
-        return valor_hora;
+        return valorHora;
     }
 
     public void setValor_hora(double valor_hora) {
-        this.valor_hora = valor_hora;
+        this.valorHora = valor_hora;
     }
 
     public String getDescricao() {

@@ -1,11 +1,11 @@
 package persistence.mysql;
 
 import model.Usuario;
-import persistence.interfaces.IUsuarioRepository;
+import persistence.interfaces.IUsuarioDAO;
 
 import java.util.ArrayList;
 
-public class UsuarioRepositoryMySQL implements IUsuarioRepository {
+public class UsuarioDAOMySQL implements IUsuarioDAO {
     @Override
     public void addUser(Usuario usuario) { }
 

@@ -1,19 +1,21 @@
 package model;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class Usuario {
     protected String username;
     protected String nome;
     protected String descricao;
-    protected int idade;
+    protected Date data_nascimento;
     protected String formacao;
     protected double avaliacao_media;
 
-    public Usuario(String username, String nome, String formacao) {
+    public Usuario(String username, String nome, String formacao, Date data_nascimento) {
         this.username = username;
         this.nome = nome;
         this.formacao = formacao;
+        this.data_nascimento = data_nascimento;
         this.avaliacao_media = 0;
     }
 
@@ -41,12 +43,12 @@ public class Usuario {
         this.descricao = descricao;
     }
 
-    public int getIdade() {
-        return idade;
+    public Date getData_nascimento() {
+        return data_nascimento;
     }
 
-    public void setIdade(int idade) {
-        this.idade = idade;
+    public void setData_nascimento(Date data_nascimento) {
+        this.data_nascimento = data_nascimento;
     }
 
     public String getFormacao() {

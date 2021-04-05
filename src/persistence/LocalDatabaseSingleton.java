@@ -2,27 +2,25 @@ package persistence;
 
 import model.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-public class DatabaseSingleton {
-    private static final DatabaseSingleton DATABASE_INSTANCE = new DatabaseSingleton();
+public class LocalDatabaseSingleton {
+    private static final LocalDatabaseSingleton DATABASE_INSTANCE = new LocalDatabaseSingleton();
     public HashMap<String, Usuario> usuarios;
     public HashMap<Integer, Aula> aulas;
-    public HashMap<Integer, Assunto> assuntos;
+    public HashMap<Integer, Topico> topicos;
     public HashMap<Integer, Disciplina> disciplinas;
     public HashMap<Integer, Contrato> contratos;
 
-    private DatabaseSingleton() {
+    private LocalDatabaseSingleton() {
         usuarios = new HashMap<String, Usuario>();
         aulas = new HashMap<Integer, Aula>();
-        assuntos = new HashMap<Integer, Assunto>();
+        topicos = new HashMap<Integer, Topico>();
         disciplinas = new HashMap<Integer,Disciplina>();
         contratos = new HashMap<Integer, Contrato>();
     }
 
-    public static DatabaseSingleton getInstance() {
+    public static LocalDatabaseSingleton getInstance() {
         return DATABASE_INSTANCE;
     }
 }

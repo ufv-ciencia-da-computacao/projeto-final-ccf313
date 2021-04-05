@@ -1,4 +1,4 @@
 package persistence.interfaces;
 
-public interface IAulaRepository {
+public interface IContratoDAO {
 }

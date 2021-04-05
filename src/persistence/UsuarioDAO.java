@@ -1,14 +1,15 @@
 package persistence;
 
 import model.Usuario;
+import persistence.interfaces.IUsuarioDAO;
 
 import java.util.ArrayList;
 
-public class UsuarioRepository {
-    private DatabaseSingleton instance;
+public class UsuarioDAO implements IUsuarioDAO {
+    private LocalDatabaseSingleton instance;
 
-    public UsuarioRepository() {
-        this.instance = DatabaseSingleton.getInstance();
+    public UsuarioDAO() {
+        this.instance = LocalDatabaseSingleton.getInstance();
     }
 
     public void addUser(Usuario usuario) {

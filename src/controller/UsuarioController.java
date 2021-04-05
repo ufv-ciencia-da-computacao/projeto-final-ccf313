@@ -1,21 +1,36 @@
 package controller;
 
 import model.Usuario;
-import persistence.interfaces.IUsuarioRepository;
+import persistence.interfaces.IUsuarioDAO;
 
-import java.util.ArrayList;
+import javax.naming.OperationNotSupportedException;
+import java.util.Date;
+import java.util.List;
 
 public class UsuarioController {
-    private IUsuarioRepository usuarioRepository;
+    private IUsuarioDAO usuarioDao;
 
-    public UsuarioController(IUsuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
+    public UsuarioController(IUsuarioDAO usuarioRepository) {
+        this.usuarioDao = usuarioRepository;
     }
 
-    public void addUser(Usuario usuario) {
-        usuarioRepository.addUser(usuario);
+    public void addUser(String username, String nome, String formacao, Date data_nascimento) throws Exception {
+        if (getUser(username) != null) {
+            usuarioDao.addUser(new Usuario(username, nome, formacao, data_nascimento));
+        } else {
+            throw new Exception("oi");
+        }
     }
 
+    public void updateUser() throws OperationNotSupportedException {
+        throw new OperationNotSupportedException();
+    }
 
+    public Usuario getUser(String username) {
+        return usuarioDao.getUser(username);
+    }
 
+    public List<Usuario> getAllUsers() {
+        return usuarioDao.getAllUser();
+    }
 }
