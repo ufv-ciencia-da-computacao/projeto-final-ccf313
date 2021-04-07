@@ -1,4 +1,4 @@
-package persistence;
+package persistence.local;
 
 import model.*;
 
@@ -7,17 +7,17 @@ import java.util.HashMap;
 public class LocalDatabaseSingleton {
     private static final LocalDatabaseSingleton DATABASE_INSTANCE = new LocalDatabaseSingleton();
     public HashMap<String, Usuario> usuarios;
-    public HashMap<Integer, Aula> aulas;
+    public HashMap<String, Aula> aulas;
     public HashMap<Integer, Topico> topicos;
-    public HashMap<Integer, Disciplina> disciplinas;
-    public HashMap<Integer, Contrato> contratos;
+    public HashMap<String, Disciplina> disciplinas;
+    public HashMap<String, Contrato> contratos;
 
     private LocalDatabaseSingleton() {
         usuarios = new HashMap<String, Usuario>();
-        aulas = new HashMap<Integer, Aula>();
+        aulas = new HashMap<String, Aula>();
         topicos = new HashMap<Integer, Topico>();
-        disciplinas = new HashMap<Integer,Disciplina>();
-        contratos = new HashMap<Integer, Contrato>();
+        disciplinas = new HashMap<String,Disciplina>();
+        contratos = new HashMap<String, Contrato>();
     }
 
     public static LocalDatabaseSingleton getInstance() {

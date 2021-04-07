@@ -1,4 +1,4 @@
-package persistence;
+package persistence.local;
 
 import model.Aula;
 import persistence.interfaces.IAulaDAO;
@@ -19,7 +19,12 @@ public class AulaDAO implements IAulaDAO {
     }
 
     @Override
-    public Aula getAula(int codAula) {
+    public void updateAula(Aula aula) {
+        localDatabase.aulas.put(aula.getCodAula(), aula);
+    }
+
+    @Override
+    public Aula getAula(String codAula) {
         return localDatabase.aulas.get(codAula);
     }
 
@@ -29,7 +34,7 @@ public class AulaDAO implements IAulaDAO {
     }
 
     @Override
-    public void deleteAula(int codAula) {
+    public void deleteAula(String codAula) {
         localDatabase.aulas.remove(codAula);
     }
 }

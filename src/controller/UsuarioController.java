@@ -8,15 +8,15 @@ import java.util.Date;
 import java.util.List;
 
 public class UsuarioController {
-    private IUsuarioDAO usuarioDao;
+    private IUsuarioDAO usuarioDAO;
 
-    public UsuarioController(IUsuarioDAO usuarioRepository) {
-        this.usuarioDao = usuarioRepository;
+    public UsuarioController(IUsuarioDAO usuarioDAO) {
+        this.usuarioDAO = usuarioDAO;
     }
 
     public void addUser(String username, String nome, String formacao, Date data_nascimento) throws Exception {
         if (getUser(username) != null) {
-            usuarioDao.addUser(new Usuario(username, nome, formacao, data_nascimento));
+            usuarioDAO.addUser(new Usuario(username, nome, formacao, data_nascimento));
         } else {
             throw new Exception("oi");
         }
@@ -27,10 +27,10 @@ public class UsuarioController {
     }
 
     public Usuario getUser(String username) {
-        return usuarioDao.getUser(username);
+        return usuarioDAO.getUser(username);
     }
 
     public List<Usuario> getAllUsers() {
-        return usuarioDao.getAllUser();
+        return usuarioDAO.getAllUser();
     }
 }

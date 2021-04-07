@@ -4,27 +4,27 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Usuario {
-    protected String username;
+    protected String email;
     protected String nome;
     protected String descricao;
     protected Date data_nascimento;
     protected String formacao;
     protected double avaliacao_media;
 
-    public Usuario(String username, String nome, String formacao, Date data_nascimento) {
-        this.username = username;
+    public Usuario(String email, String nome, String formacao, Date data_nascimento) {
+        this.email = email;
         this.nome = nome;
         this.formacao = formacao;
         this.data_nascimento = data_nascimento;
         this.avaliacao_media = 0;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNome() {
@@ -72,11 +72,11 @@ public class Usuario {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
-        return username.equals(usuario.username);
+        return email.equals(usuario.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username);
+        return Objects.hash(email);
     }
 }

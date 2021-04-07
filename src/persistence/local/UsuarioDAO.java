@@ -1,4 +1,4 @@
-package persistence;
+package persistence.local;
 
 import model.Usuario;
 import persistence.interfaces.IUsuarioDAO;
@@ -13,7 +13,7 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     public void addUser(Usuario usuario) {
-        instance.usuarios.put(usuario.getUsername(), usuario);
+        instance.usuarios.put(usuario.getEmail(), usuario);
     }
 
     public Usuario getUser(String username) {

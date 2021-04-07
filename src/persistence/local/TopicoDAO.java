@@ -1,4 +1,4 @@
-package persistence;
+package persistence.local;
 
 import model.Topico;
 import persistence.interfaces.ITopicoDAO;

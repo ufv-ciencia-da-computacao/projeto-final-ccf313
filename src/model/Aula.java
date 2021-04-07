@@ -3,29 +3,30 @@ package model;
 import java.util.List;
 
 public class Aula {
-    private int codAula;
+    private String codAula;
     private List<Topico> topicos;
     private Disciplina disciplina;
     private Professor professor;
     private double valorHora;
     private String descricao;
 
-    public Aula(List<Topico> topicos, Professor professor, double valorHora) {
+    public Aula(List<Topico> topicos, Professor professor, double valorHora, Disciplina disciplina) {
         this.topicos = topicos;
         this.professor = professor;
         this.valorHora = valorHora;
+        this.disciplina = disciplina;
     }
 
-    public Aula(List<Topico> topicos, Professor professor, double valorHora, String descricao) {
-        this(topicos, professor, valorHora);
+    public Aula(List<Topico> topicos, Professor professor, double valorHora, Disciplina disciplina, String descricao) {
+        this(topicos, professor, valorHora, disciplina);
         this.descricao = descricao;
     }
 
-    public int getCodAula() {
+    public String getCodAula() {
         return codAula;
     }
 
-    public void setCodAula(int codAula) {
+    public void setCodAula(String codAula) {
         this.codAula = codAula;
     }
 

@@ -1,13 +1,14 @@
 package persistence.interfaces;
 
 import model.Aula;
+import model.Professor;
 
 import java.util.List;
 
 public interface IAulaDAO {
     void addAula(Aula aula);
-//    void updateAula(int cod_aula, Aula aula);
-    Aula getAula(int codAula);
+    void updateAula(Aula aula);
+    Aula getAula(String codAula);
     List<Aula> getAllAulas();
-    void deleteAula(int codAula);
+    void deleteAula(String codAula);
 }

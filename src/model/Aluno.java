@@ -1,7 +1,9 @@
 package model;
 
+import java.util.Date;
+
 public class Aluno extends Usuario{
-    public Aluno(String username, String nome, String formacao) {
-        super(username, nome, formacao);
+    public Aluno(String email, String nome, String formacao, Date dataNascimento) {
+        super(email, nome, formacao, dataNascimento);
     }
 }
