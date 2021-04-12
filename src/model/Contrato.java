@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Contrato {
     private String codContrato;
@@ -11,6 +12,7 @@ public class Contrato {
     private ContratoEtapa etapas;
 
     public Contrato(Aluno aluno, Aula aula, Date dataComeco) {
+        codContrato = UUID.randomUUID().toString();
         this.aluno = aluno;
         this.aula = aula;
         this.dataComeco = dataComeco;

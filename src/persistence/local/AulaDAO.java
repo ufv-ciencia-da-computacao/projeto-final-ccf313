@@ -1,6 +1,7 @@
 package persistence.local;
 
 import model.Aula;
+import model.Disciplina;
 import persistence.interfaces.IAulaDAO;
 
 import java.util.ArrayList;
@@ -26,6 +27,18 @@ public class AulaDAO implements IAulaDAO {
     @Override
     public Aula getAula(String codAula) {
         return localDatabase.aulas.get(codAula);
+    }
+
+    @Override
+    public List<Aula> getAulaByDisciplina(Disciplina disciplina) {
+        List<Aula> aulas = new ArrayList<Aula>(localDatabase.aulas.values());
+        List<Aula> result = new ArrayList<Aula>();
+        for (Aula a: aulas) {
+            if (a.getDisciplina().equals(disciplina)) {
+                result.add(a);
+            }
+        }
+        return result;
     }
 
     @Override

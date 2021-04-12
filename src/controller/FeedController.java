@@ -1,14 +1,18 @@
 package controller;
 
 import model.Aula;
+import model.Disciplina;
 import persistence.interfaces.IAulaDAO;
+import persistence.interfaces.IDisciplinaDAO;
 
 import java.util.List;
 
 public class FeedController {
     private IAulaDAO aulaDAO;
+    private IDisciplinaDAO disciplinaDAO;
 
-    public FeedController(IAulaDAO aulaDAO) {
+    public FeedController(IAulaDAO aulaDAO, IDisciplinaDAO disciplinaDAO) {
+        this.disciplinaDAO = disciplinaDAO;
         this.aulaDAO = aulaDAO;
     }
 
@@ -26,5 +30,11 @@ public class FeedController {
         }
 
         return aula;
+    }
+
+    public List<Aula> getAulaPorDisciplina(String codDisciplina) {
+        Disciplina disciplina = disciplinaDAO.getDisciplina(codDisciplina);
+
+        return aulaDAO.getAulaByDisciplina(disciplina);
     }
 }

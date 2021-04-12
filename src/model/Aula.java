@@ -46,12 +46,20 @@ public class Aula {
         this.professor = professor;
     }
 
-    public double getValor_hora() {
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
+    }
+
+    public double getValorHora() {
         return valorHora;
     }
 
-    public void setValor_hora(double valor_hora) {
-        this.valorHora = valor_hora;
+    public void setValorHora(double valorHora) {
+        this.valorHora = valorHora;
     }
 
     public String getDescricao() {

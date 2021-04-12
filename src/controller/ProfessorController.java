@@ -1,9 +1,6 @@
 package controller;
 
-import model.Aula;
-import model.Disciplina;
-import model.Professor;
-import model.Topico;
+import model.*;
 import persistence.interfaces.*;
 
 import java.util.ArrayList;
@@ -59,6 +56,15 @@ public class ProfessorController {
         }
     }
 
-    void negociarAula() {}
-    void verTodasAulasContratadas() {}
+    public void negociarContrato(String email, String codContrato, ContratoEtapa etapa) {
+           if (etapa.equals(ContratoEtapa.DECLINADO)) {
+               contratoDAO.declineContrato(codContrato);
+           } else {
+               contratoDAO.acceptContrato(codContrato);
+           }
+    }
+
+    public List<Contrato> verAulasPorEtapa(String email) {
+        return contratoDAO.getAllContratosByProfessorAndEtapa(email, ContratoEtapa.NEGOCIACAO);
+    }
 }
