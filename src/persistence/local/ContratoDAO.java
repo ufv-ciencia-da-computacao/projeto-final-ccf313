@@ -39,7 +39,7 @@ public class ContratoDAO implements IContratoDAO {
         List<Contrato> contratos = new ArrayList<Contrato>();
         for (Map.Entry<String, Contrato> entry: localDatabase.contratos.entrySet()) {
             Contrato c = entry.getValue();
-            if (c.getAula().getProfessor().getEmail().equals(email)) {
+            if (c.getAula().getProfessor().getUsername().equals(email)) {
                 contratos.add(c);
             }
         }
@@ -51,7 +51,7 @@ public class ContratoDAO implements IContratoDAO {
         List<Contrato> contratos = new ArrayList<Contrato>();
         for (Map.Entry<String, Contrato> entry: localDatabase.contratos.entrySet()) {
             Contrato c = entry.getValue();
-            if (c.getAluno().getEmail().equals(email)) {
+            if (c.getAluno().getUsername().equals(email)) {
                 contratos.add(c);
             }
         }
@@ -63,7 +63,7 @@ public class ContratoDAO implements IContratoDAO {
         List<Contrato> contratos = new ArrayList<Contrato>();
         for (Map.Entry<String, Contrato> entry: localDatabase.contratos.entrySet()) {
             Contrato c = entry.getValue();
-            if (c.getAluno().getEmail().equals(email) && c.getEtapas() == etapa) {
+            if (c.getAluno().getUsername().equals(email) && c.getEtapas() == etapa) {
                 contratos.add(c);
             }
         }
@@ -75,7 +75,7 @@ public class ContratoDAO implements IContratoDAO {
         List<Contrato> contratos = new ArrayList<Contrato>();
         for (Map.Entry<String, Contrato> entry: localDatabase.contratos.entrySet()) {
             Contrato c = entry.getValue();
-            if (c.getAula().getProfessor().getEmail().equals(email) && c.getEtapas()==etapa) {
+            if (c.getAula().getProfessor().getUsername().equals(email) && c.getEtapas()==etapa) {
                 contratos.add(c);
             }
         }

@@ -1,16 +1,21 @@
 package controller;
 
+import model.Avaliacao;
 import model.Usuario;
+import persistence.interfaces.IAvaliacaoDAO;
 import persistence.interfaces.IUsuarioDAO;
 
 import javax.naming.OperationNotSupportedException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class UsuarioController {
     private IUsuarioDAO usuarioDAO;
+    private IAvaliacaoDAO avaliacaoDAO;
 
-    public UsuarioController(IUsuarioDAO usuarioDAO) {
+    public UsuarioController(IUsuarioDAO usuarioDAO, IAvaliacaoDAO avaliacaoDAO) {
+        this.avaliacaoDAO = avaliacaoDAO;
         this.usuarioDAO = usuarioDAO;
     }
 
@@ -33,4 +38,17 @@ public class UsuarioController {
     public List<Usuario> getAllUsers() {
         return usuarioDAO.getAllUser();
     }
+
+    public void avaliarAluno(String usernameAvaliador, String usernameAvaliado, double valor, String comentario) {
+        Usuario avaliado = usuarioDAO.getUser(usernameAvaliado);
+        Usuario avaliador = usuarioDAO.getUser(usernameAvaliador);
+
+        Avaliacao avaliacao = new Avaliacao(avaliador, avaliado, valor, comentario);
+        avaliacaoDAO.addAvaliacao(avaliacao);
+    }
+
+    public List<Avaliacao> getAvaliacoesByUsuario(String usernameAvaliado) {
+        return avaliacaoDAO.getByUsuario(usernameAvaliado);
+    }
+
 }

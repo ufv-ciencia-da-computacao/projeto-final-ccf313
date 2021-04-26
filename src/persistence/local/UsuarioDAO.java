@@ -13,7 +13,7 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     public void addUser(Usuario usuario) {
-        instance.usuarios.put(usuario.getEmail(), usuario);
+        instance.usuarios.put(usuario.getUsername(), usuario);
     }
 
     public Usuario getUser(String email) {

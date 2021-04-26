@@ -1,30 +1,40 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Usuario {
-    protected String email;
+    protected String username;
     protected String nome;
     protected String descricao;
     protected Date data_nascimento;
     protected String formacao;
-    protected double avaliacao_media;
+    protected List<Avaliacao> avaliacoes;
 
-    public Usuario(String email, String nome, String formacao, Date data_nascimento) {
-        this.email = email;
+    public Usuario(String username, String nome, String formacao, Date data_nascimento) {
+        this.username = username;
         this.nome = nome;
         this.formacao = formacao;
         this.data_nascimento = data_nascimento;
-        this.avaliacao_media = 0;
+        this.avaliacoes = new ArrayList<Avaliacao>();
     }
 
-    public String getEmail() {
-        return email;
+    public List<Avaliacao> getAvaliacoes() {
+        return avaliacoes;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void addAvaliacao(Avaliacao avaliacao) {
+        this.avaliacoes.add(avaliacao);
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getNome() {
@@ -59,24 +69,16 @@ public class Usuario {
         this.formacao = formacao;
     }
 
-    public double getAvaliacao() {
-        return avaliacao_media;
-    }
-
-    public void setAvaliacao(double avaliacao) {
-        this.avaliacao_media = avaliacao;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
-        return email.equals(usuario.email);
+        return username.equals(usuario.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email);
+        return Objects.hash(username);
     }
 }
