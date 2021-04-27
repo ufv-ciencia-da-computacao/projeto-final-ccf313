@@ -43,11 +43,11 @@ public class Usuario {
         this.descricao = descricao;
     }
 
-    public Date getData_nascimento() {
+    public Date getDataNascimento() {
         return data_nascimento;
     }
 
-    public void setData_nascimento(Date data_nascimento) {
+    public void setDataNascimento(Date data_nascimento) {
         this.data_nascimento = data_nascimento;
     }
 
