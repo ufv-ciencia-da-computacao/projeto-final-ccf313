@@ -59,4 +59,4 @@ nbdist/
 *.iml
 
 # netbeans folder
-./nbproject/
+nbproject/
