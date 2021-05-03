@@ -6,6 +6,6 @@ import model.Usuario;
 import java.util.List;
 
 public interface IAvaliacaoDAO {
-    void addAvaliacao(Avaliacao avaliacao);
-    List<Avaliacao> getByUsuario(String username);
+    public void addAvaliacao(Avaliacao avaliacao);
+    public List<Avaliacao> getByUsuario(String username);
 }

@@ -51,4 +51,16 @@ public class UsuarioController {
         return avaliacaoDAO.getByUsuario(usernameAvaliado);
     }
 
+    public double getMediaAvaliacoes(String usernameAvaliado) {
+        List<Avaliacao> avaliacoes = avaliacaoDAO.getByUsuario(usernameAvaliado);
+
+        double media = 0;
+
+        for (Avaliacao a: avaliacoes) {
+            media += a.getValor()
+        }
+
+        return media/avaliacoes.size();
+    }
+
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Usuario {
+    protected int id;
     protected String username;
     protected String nome;
     protected String descricao;
@@ -19,6 +20,14 @@ public class Usuario {
         this.formacao = formacao;
         this.data_nascimento = data_nascimento;
         this.avaliacoes = new ArrayList<Avaliacao>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public List<Avaliacao> getAvaliacoes() {
