@@ -7,7 +7,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 public class ConnectionFactory {
-    public static final String URL = "jdbc:mysql://localhost:3306/mydb";
+    public static final String URL = "jdbc:mysql://localhost:3306/tpfinalpoo";
     public static final String USER = "root";
     public static final String PASS = "fabiodtnaf";
 

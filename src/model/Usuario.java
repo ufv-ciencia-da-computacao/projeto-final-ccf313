@@ -21,6 +21,14 @@ public class Usuario {
         this.data_nascimento = data_nascimento;
         this.avaliacoes = new ArrayList<Avaliacao>();
     }
+    public Usuario(String username, String nome, String formacao, Date data_nascimento,String descricao) {
+        this.username = username;
+        this.nome = nome;
+        this.formacao = formacao;
+        this.data_nascimento = data_nascimento;
+        this.avaliacoes = new ArrayList<Avaliacao>();
+        this.descricao=descricao;
+    }
 
     public int getId() {
         return id;

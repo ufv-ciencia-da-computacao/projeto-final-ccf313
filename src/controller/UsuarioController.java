@@ -57,7 +57,7 @@ public class UsuarioController {
         double media = 0;
 
         for (Avaliacao a: avaliacoes) {
-            media += a.getValor()
+            media += a.getValor();
         }
 
         return media/avaliacoes.size();
