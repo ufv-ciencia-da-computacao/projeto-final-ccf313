@@ -12,12 +12,14 @@ public class Avaliacao {
         this.valor = valor;
     }
 
-    public Avaliacao(Usuario avaliador, Usuario avaliado, double valor, String comentario) {
-        this.avaliador = avaliador;
+    public Avaliacao(Usuario avaliador, Usuario avaliado, double valor,String comentario) {
         this.avaliado = avaliado;
+        this.avaliador = avaliador;
         this.valor = valor;
-        this.comentario = comentario;
+        this.comentario=comentario;
     }
+
+
 
     public Usuario getAvaliado() {
         return avaliado;
