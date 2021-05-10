@@ -16,8 +16,8 @@ public class UsuarioDAO implements IUsuarioDAO {
         instance.usuarios.put(usuario.getUsername(), usuario);
     }
 
-    public Usuario getUser(String email) {
-        return instance.usuarios.get(email);
+    public Usuario getUser(String username) {
+        return instance.usuarios.get(username);
     }
 
     public ArrayList<Usuario> getAllUser() {

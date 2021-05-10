@@ -1,5 +1,7 @@
 package controller;
 
+import exceptions.AulaNaoEncontrada;
+import exceptions.DisciplinaNaoEncontrada;
 import model.Aula;
 import model.Disciplina;
 import persistence.interfaces.IAulaDAO;
@@ -24,17 +26,15 @@ public class FeedController {
         Aula aula = aulaDAO.getAula(codAula);
 
         if (aula == null) {
-            throw new Exception("oi");
-        } else {
-            aulaDAO.getAula(codAula);
+            throw new AulaNaoEncontrada("Aula nao encontrada!");
         }
 
         return aula;
     }
 
-    public List<Aula> getAulaPorDisciplina(String codDisciplina) {
+    public List<Aula> getAulaPorDisciplina(String codDisciplina) throws DisciplinaNaoEncontrada {
         Disciplina disciplina = disciplinaDAO.getDisciplina(codDisciplina);
-
+        if (disciplina == null) throw new DisciplinaNaoEncontrada("Disciplina nao encontrada!");
         return aulaDAO.getAulaByDisciplina(disciplina);
     }
 }

@@ -1,5 +1,8 @@
 package controller;
 
+import exceptions.UsernameNaoUnico;
+import exceptions.UsuarioNaoEncontradoException;
+import exceptions.UsuarioSemAvaliacao;
 import model.Avaliacao;
 import model.Usuario;
 import persistence.interfaces.IAvaliacaoDAO;
@@ -23,38 +26,50 @@ public class UsuarioController {
         if (getUser(username) != null) {
             usuarioDAO.addUser(new Usuario(username, nome, formacao, data_nascimento));
         } else {
-            throw new Exception("oi");
+            throw new UsernameNaoUnico("Um usuario já foi cadastrado com o mesmo username!");
         }
     }
 
-    public void updateUser() throws OperationNotSupportedException {
-        throw new OperationNotSupportedException();
-    }
-
-    public Usuario getUser(String username) {
-        return usuarioDAO.getUser(username);
+    public Usuario getUser(String username) throws UsuarioNaoEncontradoException {
+        Usuario usuario = usuarioDAO.getUser(username);
+        if (usuario == null) throw new UsuarioNaoEncontradoException("Usuario nao encontrado!");
+        return usuario;
     }
 
     public List<Usuario> getAllUsers() {
         return usuarioDAO.getAllUser();
     }
 
-    public void avaliarAluno(String usernameAvaliador, String usernameAvaliado, double valor, String comentario) {
+    public void avaliarAluno(String usernameAvaliador, String usernameAvaliado, double valor, String comentario) throws UsuarioNaoEncontradoException {
         Usuario avaliado = usuarioDAO.getUser(usernameAvaliado);
         Usuario avaliador = usuarioDAO.getUser(usernameAvaliador);
+
+        if (avaliado == null || avaliador == null) {
+            throw new UsuarioNaoEncontradoException("Usuário Avaliado ou Avaliador não encontrado!");
+        }
 
         Avaliacao avaliacao = new Avaliacao(avaliador, avaliado, valor, comentario);
         avaliacaoDAO.addAvaliacao(avaliacao);
     }
 
-    public List<Avaliacao> getAvaliacoesByUsuario(String usernameAvaliado) {
+    public List<Avaliacao> getAvaliacoesByUsuario(String usernameAvaliado) throws UsuarioSemAvaliacao, UsuarioNaoEncontradoException {
+        Usuario usuario = usuarioDAO.getUser(usernameAvaliado);
+        if (usuario == null) throw new UsuarioNaoEncontradoException("Usuario nao encontrado!");
+
+        List<Avaliacao> avaliacoes = avaliacaoDAO.getByUsuario(usernameAvaliado);
+        if (avaliacoes.isEmpty()) throw new UsuarioSemAvaliacao("Usuario não possui nenhuma avalaiação!");
+
         return avaliacaoDAO.getByUsuario(usernameAvaliado);
     }
 
-    public double getMediaAvaliacoes(String usernameAvaliado) {
-        List<Avaliacao> avaliacoes = avaliacaoDAO.getByUsuario(usernameAvaliado);
+    public double getMediaAvaliacoes(String usernameAvaliado) throws UsuarioSemAvaliacao, UsuarioNaoEncontradoException {
+        Usuario usuario = usuarioDAO.getUser(usernameAvaliado);
+        if (usuario == null) throw new UsuarioNaoEncontradoException("Usuario nao encontrado!");
 
+        List<Avaliacao> avaliacoes = avaliacaoDAO.getByUsuario(usernameAvaliado);
         double media = 0;
+
+        if (avaliacoes.isEmpty()) throw new UsuarioSemAvaliacao("Usuario não possui nenhuma avalaiação!");
 
         for (Avaliacao a: avaliacoes) {
             media += a.getValor();

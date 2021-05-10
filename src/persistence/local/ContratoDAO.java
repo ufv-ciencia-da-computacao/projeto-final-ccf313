@@ -35,11 +35,11 @@ public class ContratoDAO implements IContratoDAO {
     }
 
     @Override
-    public List<Contrato> getAllContratosByProfessor(String email) {
+    public List<Contrato> getAllContratosByProfessor(String username) {
         List<Contrato> contratos = new ArrayList<Contrato>();
         for (Map.Entry<String, Contrato> entry: localDatabase.contratos.entrySet()) {
             Contrato c = entry.getValue();
-            if (c.getAula().getProfessor().getUsername().equals(email)) {
+            if (c.getAula().getProfessor().getUsername().equals(username)) {
                 contratos.add(c);
             }
         }
@@ -47,11 +47,11 @@ public class ContratoDAO implements IContratoDAO {
     }
 
     @Override
-    public List<Contrato> getAllContratosByAluno(String email) {
+    public List<Contrato> getAllContratosByAluno(String username) {
         List<Contrato> contratos = new ArrayList<Contrato>();
         for (Map.Entry<String, Contrato> entry: localDatabase.contratos.entrySet()) {
             Contrato c = entry.getValue();
-            if (c.getAluno().getUsername().equals(email)) {
+            if (c.getAluno().getUsername().equals(username)) {
                 contratos.add(c);
             }
         }
@@ -59,11 +59,11 @@ public class ContratoDAO implements IContratoDAO {
     }
 
     @Override
-    public List<Contrato> getAllContratosByAlunoAndEtapa(String email, ContratoEtapa etapa) {
+    public List<Contrato> getAllContratosByAlunoAndEtapa(String username, ContratoEtapa etapa) {
         List<Contrato> contratos = new ArrayList<Contrato>();
         for (Map.Entry<String, Contrato> entry: localDatabase.contratos.entrySet()) {
             Contrato c = entry.getValue();
-            if (c.getAluno().getUsername().equals(email) && c.getEtapas() == etapa) {
+            if (c.getAluno().getUsername().equals(username) && c.getEtapas() == etapa) {
                 contratos.add(c);
             }
         }
@@ -71,11 +71,11 @@ public class ContratoDAO implements IContratoDAO {
     }
 
     @Override
-    public List<Contrato> getAllContratosByProfessorAndEtapa(String email, ContratoEtapa etapa) {
+    public List<Contrato> getAllContratosByProfessorAndEtapa(String username, ContratoEtapa etapa) {
         List<Contrato> contratos = new ArrayList<Contrato>();
         for (Map.Entry<String, Contrato> entry: localDatabase.contratos.entrySet()) {
             Contrato c = entry.getValue();
-            if (c.getAula().getProfessor().getUsername().equals(email) && c.getEtapas()==etapa) {
+            if (c.getAula().getProfessor().getUsername().equals(username) && c.getEtapas()==etapa) {
                 contratos.add(c);
             }
         }

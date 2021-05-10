@@ -1,9 +1,9 @@
 package controller;
 
-import model.Aluno;
-import model.Aula;
-import model.Contrato;
-import model.ContratoEtapa;
+import exceptions.AulaNaoEncontrada;
+import exceptions.ContratoEtapaNaoEncontrada;
+import exceptions.UsuarioNaoEncontradoException;
+import model.*;
 import persistence.interfaces.IAulaDAO;
 import persistence.interfaces.IContratoDAO;
 import persistence.interfaces.IUsuarioDAO;
@@ -22,13 +22,24 @@ public class AlunoController {
         this.aulaDAO = aulaDAO;
     }
 
-    List<Contrato> getContratosByEtapa(String email, ContratoEtapa etapa) {
-        return contratoDAO.getAllContratosByAlunoAndEtapa(email, etapa);
+    List<Contrato> getContratosByEtapa(String username, ContratoEtapa etapa) throws ContratoEtapaNaoEncontrada, UsuarioNaoEncontradoException {
+        Usuario usuario = usuarioDAO.getUser(username);
+        if (usuario == null) throw new UsuarioNaoEncontradoException("Usuario não encontrado!");
+        List<Contrato> contratos = contratoDAO.getAllContratosByAlunoAndEtapa(username, etapa);
+        if (contratos == null) throw new ContratoEtapaNaoEncontrada("Não existe contrato com essa etapa!");
+        return contratos;
     }
 
-    void negociarAula(String email, String aulaCod, Date dataComeco, Date dataFinal) {
-        Aluno aluno = (Aluno) usuarioDAO.getUser(email);
+    void negociarAula(String username, String aulaCod, Date dataComeco, Date dataFinal) throws UsuarioNaoEncontradoException, AulaNaoEncontrada {
+        Aluno aluno = (Aluno) usuarioDAO.getUser(username);
+
+        if (aluno == null) {
+            throw new UsuarioNaoEncontradoException("Usuario não encontrado!");
+        }
+
         Aula aula = aulaDAO.getAula(aulaCod);
+
+        if (aula == null) throw new AulaNaoEncontrada("Aula não encontrada!");
 
         Contrato contrato = new Contrato(aluno, aula, dataComeco, dataFinal);
 

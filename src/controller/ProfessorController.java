@@ -1,5 +1,6 @@
 package controller;
 
+import exceptions.*;
 import model.*;
 import persistence.interfaces.*;
 
@@ -23,8 +24,8 @@ public class ProfessorController {
         this.contratoDAO = contratoDAO;
     }
 
-    public void addAula(String email, String codDisciplina,
-                        double valorHora, List<Integer> topicosStr, String descricao) throws Exception {
+    public void addAula(String username, String codDisciplina,
+                        double valorHora, List<Integer> topicosStr, String descricao) throws DisciplinaNaoEncontrada, UsuarioNaoEncontradoException {
 
         List<Topico> topicos = new ArrayList<>();
         for (Integer cod: topicosStr) {
@@ -32,39 +33,43 @@ public class ProfessorController {
         }
 
         Disciplina dd = disciplinaDAO.getDisciplina(codDisciplina);
+        if (dd == null) throw new DisciplinaNaoEncontrada("Disciplina nao encontrada!");
 
-        Professor prof = (Professor) usuarioDAO.getUser(email);
+        Professor prof = (Professor) usuarioDAO.getUser(username);
+        if (prof == null) throw new UsuarioNaoEncontradoException("Usuario nao encontrado!");
 
         Aula a = new Aula(topicos, prof, valorHora, dd, descricao);
 
         aulaDAO.addAula(a);
     }
 
-    public void deleteAula(String email, String codAula) throws Exception {
-        Professor prof = (Professor) usuarioDAO.getUser(email);
+    public void deleteAula(String username, String codAula) throws UsuarioNaoEncontradoException, AulaNaoEncontrada, UnsafeOperation {
+        Professor prof = (Professor) usuarioDAO.getUser(username);
+        if (prof == null) throw new UsuarioNaoEncontradoException("Usuario nao encontrado!");
 
         Aula aulaToDelete = aulaDAO.getAula(codAula);
-
-        if (aulaToDelete == null) {
-            throw new Exception("oi");
-        }
+        if (aulaToDelete == null) throw new AulaNaoEncontrada("Aula nao encontrada!");
 
         if (aulaToDelete.getProfessor().equals(prof)) {
             aulaDAO.deleteAula(codAula);
         } else {
-            throw new Exception("oi");
+            throw new UnsafeOperation("Operação realizada sem sucesso!");
         }
     }
 
-    public void negociarContrato(String email, String codContrato, ContratoEtapa etapa) {
-           if (etapa.equals(ContratoEtapa.DECLINADO)) {
-               contratoDAO.declineContrato(codContrato);
-           } else {
-               contratoDAO.acceptContrato(codContrato);
-           }
+    public void negociarContrato(String username, String codContrato, ContratoEtapa etapa) {
+       // TODO: Fazer verificação (Exception)
+       if (etapa.equals(ContratoEtapa.DECLINADO)) {
+           contratoDAO.declineContrato(codContrato);
+       } else {
+           contratoDAO.acceptContrato(codContrato);
+       }
     }
 
-    public List<Contrato> verAulasPorEtapa(String email) {
-        return contratoDAO.getAllContratosByProfessorAndEtapa(email, ContratoEtapa.NEGOCIACAO);
+    public List<Contrato> verAulasPorEtapa(String username) throws UsuarioNaoEncontradoException {
+        Usuario usuario = usuarioDAO.getUser(username);
+        if (usuario == null) throw new UsuarioNaoEncontradoException("Usuario nao encontrado!");
+
+        return contratoDAO.getAllContratosByProfessorAndEtapa(username, ContratoEtapa.NEGOCIACAO);
     }
 }
