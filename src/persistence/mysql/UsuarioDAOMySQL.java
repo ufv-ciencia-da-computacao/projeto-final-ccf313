@@ -10,14 +10,14 @@ import java.util.*;
 
 public class UsuarioDAOMySQL implements IUsuarioDAO {
     final String columnNome="nome";
-    final String columnIdUsuario="idUsuario";
     final String columnDescricao="descricao";
     final String columndataNascimento="dataNascimento";
     final String columnFormacao="formacao";
     final String columnUsername="username";
+    final String columnTipoUsuario="tipoUsuario";
 
     final String INSERT_USER="INSERT INTO usuario("+columnNome+","+columnDescricao+","+
-        columndataNascimento+","+columnFormacao+","+columnUsername+") VALUES (?,?,?,?,?);";
+        columndataNascimento+","+columnFormacao+","+columnUsername+","+columnTipoUsuario+") VALUES (?,?,?,?,?,?);";
     final String SELECT_USER="SELECT * FROM usuario WHERE username=?;";
     final String SELECT_ALL_USERS="SELECT * FROM usuario;";
 
@@ -38,6 +38,7 @@ public class UsuarioDAOMySQL implements IUsuarioDAO {
             ps.setDate(3,  new java.sql.Date(usuario.getDataNascimento().getTime()));
             ps.setString(4, usuario.getFormacao());
             ps.setString(5, usuario.getUsername());
+            ps.setInt(6, usuario.getTipoUsuario());
             int i=ps.executeUpdate();
         }catch (SQLException  e){
             e.printStackTrace();
@@ -56,21 +57,22 @@ public class UsuarioDAOMySQL implements IUsuarioDAO {
             if(rs.next())
             {
                 String nome= rs.getNString(columnNome);
-                int idUsuario= rs.getInt(columnIdUsuario);
                 String formacao= rs.getNString(columnFormacao);
                 Date dataNascimento= rs.getDate(columndataNascimento);
                 String descricao= rs.getNString(columnDescricao);
                 String userName= rs.getNString(columnUsername);
+                int tipoUsuario= rs.getInt(columnTipoUsuario);
 
 //                System.out.println(userName);
-////                System.out.println(descricao);
-////                System.out.println(formacao);
-////                System.out.println(nome);
-////                System.out.println(dataNascimento);
+//                System.out.println(descricao);
+//                System.out.println(formacao);
+//                System.out.println(nome);
+//                System.out.println(dataNascimento);
+//                System.out.println(tipoUsuario);
 
 
                 return new Usuario(userName,nome,formacao,
-                        dataNascimento,descricao);
+                        dataNascimento,descricao,tipoUsuario);
             }
 
 
@@ -85,7 +87,7 @@ public class UsuarioDAOMySQL implements IUsuarioDAO {
     @Override
     public ArrayList<Usuario> getAllUser() {
         Connection connection = ConnectionFactory.getConnection();
-        ArrayList<Usuario> usuarios=new ArrayList<Usuario>();
+        ArrayList<Usuario> usuarios=new ArrayList<>();
         try {
             PreparedStatement ps = connection.prepareStatement(SELECT_ALL_USERS);
 
@@ -99,9 +101,10 @@ public class UsuarioDAOMySQL implements IUsuarioDAO {
                 Date dataNascimento= rs.getDate(columndataNascimento);
                 String descricao= rs.getNString(columnDescricao);
                 String userName= rs.getNString(columnUsername);
+                int tipoUsuario= rs.getInt(columnTipoUsuario);
 
                 Usuario user= new Usuario(userName,nome,formacao,
-                        dataNascimento,descricao);
+                        dataNascimento,descricao,tipoUsuario);
 
                 usuarios.add(user);
 //                System.out.println(userName);
@@ -109,6 +112,7 @@ public class UsuarioDAOMySQL implements IUsuarioDAO {
 //                System.out.println(formacao);
 //                System.out.println(nome);
 //                System.out.println(dataNascimento);
+//                System.out.println(tipoUsuario);
             }
 
             return usuarios;
@@ -122,11 +126,15 @@ public class UsuarioDAOMySQL implements IUsuarioDAO {
     }
 
     public static void main(String[] args) {
-        UsuarioDAOMySQL usuarioDAOMySQL=new UsuarioDAOMySQL();
-        //Usuario usuario=new Usuario("dener","Dener","talarico",
-          //   new Date(2001-1900,2,12),"raspa canela");
-        //usuarioDAOMySQL.addUser(usuario);
-       // usuarioDAOMySQL.getUser("gegen07");
+       UsuarioDAOMySQL usuarioDAOMySQL=new UsuarioDAOMySQL();
+//        Usuario usuario=new Usuario("dener","Dener","talarico",
+//             new Date(2001-1900,2,12),"raspa canela",1);
+//        Usuario usuario3=new Usuario("Fabio","fabio","lindeza",
+//                new java.util.Date(2001-1900,8,5),"top d+");
+//      Usuario usuario=new Usuario("gegen07","Germano Barcelos","vagabundo",
+//             new Date(2001-1900,2,25),"ze cabeça",0);
+       // usuarioDAOMySQL.addUser(usuario3);
+//        usuarioDAOMySQL.getUser("dener");
         usuarioDAOMySQL.getAllUser();
 
     }

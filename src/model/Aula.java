@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.UUID;
 
 public class Aula {
     private String codAula;
@@ -15,11 +16,13 @@ public class Aula {
         this.professor = professor;
         this.valorHora = valorHora;
         this.disciplina = disciplina;
+        this.codAula= UUID.randomUUID().toString();
     }
 
     public Aula(List<Topico> topicos, Professor professor, double valorHora, Disciplina disciplina, String descricao) {
         this(topicos, professor, valorHora, disciplina);
         this.descricao = descricao;
+        this.codAula=UUID.randomUUID().toString();
     }
 
     public String getCodAula() {

@@ -30,11 +30,11 @@ public class AulaDAO implements IAulaDAO {
     }
 
     @Override
-    public List<Aula> getAulaByDisciplina(Disciplina disciplina) {
+    public List<Aula> getAulaByDisciplina(String codDisciplina) {
         List<Aula> aulas = new ArrayList<Aula>(localDatabase.aulas.values());
         List<Aula> result = new ArrayList<Aula>();
         for (Aula a: aulas) {
-            if (a.getDisciplina().equals(disciplina)) {
+            if (a.getDisciplina().getCodDisciplina().equals(codDisciplina)) {
                 result.add(a);
             }
         }

@@ -51,4 +51,20 @@ public class Contrato {
     public void setEtapas(ContratoEtapa etapa) {
         this.etapas = etapa;
     }
+
+    public Date getDataComeco() {
+        return dataComeco;
+    }
+
+    public void setDataComeco(Date dataComeco) {
+        this.dataComeco = dataComeco;
+    }
+
+    public Date getDataFinal() {
+        return dataFinal;
+    }
+
+    public void setDataFinal(Date dataFinal) {
+        this.dataFinal = dataFinal;
+    }
 }

@@ -13,15 +13,15 @@ import java.util.Date;
 import java.util.List;
 
 public class AvaliacaoDAOMySQL implements IAvaliacaoDAO {
-    final String columnIdUsuarioAvaliador="idUsuarioAvaliador";
-    final String columnIdUsuarioAvaliado="idUsuarioAvaliado";
+    final String columnUsernameAvaliador="usernameAvaliador";
+    final String columnUsernameProfessor="usernameProfessor";
     final String columnComentario="comentario";
     final String columnValor="valor";
 
 
-    final String INSERT_AVALIACAO="INSERT INTO avaliacaousuario("+columnIdUsuarioAvaliador+","+columnIdUsuarioAvaliado+","+
+    final String INSERT_AVALIACAO="INSERT INTO avaliacaousuario("+columnUsernameAvaliador+","+columnUsernameProfessor+","+
             columnComentario+","+columnValor+") VALUES (?,?,?,?);";
-    final String SELECT_AVALIACOES="SELECT * FROM avaliacaousuario WHERE idUsuarioAvaliado=?;";
+    final String SELECT_AVALIACOES="SELECT * FROM avaliacaousuario WHERE usernameProfessor=?;";
 
     @Override
     public void addAvaliacao(Avaliacao avaliacao) {
@@ -30,8 +30,8 @@ public class AvaliacaoDAOMySQL implements IAvaliacaoDAO {
         try {
             PreparedStatement ps = connection.prepareStatement(INSERT_AVALIACAO);
 
-            ps.setInt(1,avaliacao.getAvaliador().getId());
-            ps.setInt(2, avaliacao.getAvaliado().getId());
+            ps.setString(1,avaliacao.getAvaliador().getUsername());
+            ps.setString(2, avaliacao.getAvaliado().getUsername());
             ps.setString(3, avaliacao.getComentario());
             ps.setDouble(4, avaliacao.getValor());
             int i=ps.executeUpdate();
@@ -46,20 +46,20 @@ public class AvaliacaoDAOMySQL implements IAvaliacaoDAO {
         ArrayList<Avaliacao> avaliacoes=new ArrayList<>();
         try {
             PreparedStatement ps = connection.prepareStatement(SELECT_AVALIACOES);
-            ps.setObject(1,Integer.parseInt(username));
+            ps.setObject(1,username);
             ResultSet rs= ps.executeQuery();
             UsuarioDAOMySQL usuarioDAOMySQL=new UsuarioDAOMySQL();
 
 
             while(rs.next())
             {
-                int idUsuarioAvaliador= rs.getInt(columnIdUsuarioAvaliador);
-                int idUsuarioAvaliado= rs.getInt(columnIdUsuarioAvaliado);
+                String usernameAvaliador= rs.getNString(columnUsernameAvaliador);
+                String usernameProfessor= rs.getNString(columnUsernameProfessor);
                 String comentario= rs.getNString(columnComentario);
                 double valor= rs.getDouble(columnValor);
 
-                Usuario userAvaliador= usuarioDAOMySQL.getUser("");
-                Usuario userAvaliado= usuarioDAOMySQL.getUser("");
+                Usuario userAvaliador= usuarioDAOMySQL.getUser(usernameAvaliador);
+                Usuario userAvaliado= usuarioDAOMySQL.getUser(usernameProfessor);
                 Avaliacao avaliacao = new Avaliacao(userAvaliador,userAvaliado,valor,comentario);
                 avaliacoes.add(avaliacao);
                 System.out.println(avaliacao.getAvaliador().getUsername());
@@ -78,15 +78,19 @@ public class AvaliacaoDAOMySQL implements IAvaliacaoDAO {
         return null;
     }
     public static void main(String[] args) {
-        AvaliacaoDAOMySQL avaliacaoDAOMySQL=new AvaliacaoDAOMySQL();
-        Usuario usuario=new Usuario("dener","Dener","talarico",
-           new Date(2001-1900,2,12),"raspa canela");
-        Usuario usuario2=new Usuario("gegen07","Germano","vagabundo",
-                    new Date(2001-1900,2,25),"descricao");
-        usuario.setId(2);
-        usuario2.setId(1);
-        Avaliacao avaliacao=new Avaliacao(usuario,usuario2,0.1,"comentario");
-        avaliacaoDAOMySQL.addAvaliacao(avaliacao);
+        //AvaliacaoDAOMySQL avaliacaoDAOMySQL=new AvaliacaoDAOMySQL();
+//        Usuario usuario=new Usuario("dener","Dener","talarico",
+//           new Date(2001-1900,2,12),"raspa canela");
+
+//        Usuario usuario3=new Usuario("Fabio","fabio","lindeza",
+//                new Date(2001-1900,8,5),"top d+");
+
+//        Usuario usuario2=new Usuario("gegen07","Germano","vagabundo",
+//                    new Date(2001-1900,2,25),"descricao");
+
+        //Avaliacao avaliacao=new Avaliacao(usuario3,usuario2,0.1,"comentario");
+        //avaliacaoDAOMySQL.addAvaliacao(avaliacao);
+        //avaliacaoDAOMySQL.getByUsuario("gegen07");
 
     }
 }

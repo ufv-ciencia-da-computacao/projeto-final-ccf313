@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DisciplinaDAOMySQL implements IDisciplinaDAO {
-    final String SELECT_DISCIPLINA="SELECT * FROM disciplina WHERE idDisciplina=?;";
+    final String SELECT_DISCIPLINA="SELECT * FROM disciplina WHERE codDisciplina=?;";
     final String SELECT_ALL_USERS="SELECT * FROM disciplina;";
 
     final String  columnNome="nome";
     final String  columnDescricao="descricao";
-    final String columnCodDisciplina="idDisciplina";
+    final String columnCodDisciplina="codDisciplina";
 
     @Override
     public List<Disciplina> getAllDisciplina() {
@@ -36,9 +36,9 @@ public class DisciplinaDAOMySQL implements IDisciplinaDAO {
                 Disciplina disciplina= new Disciplina(nome,descricao);
 
                 disciplinas.add(disciplina);
-                System.out.println(nome);
-               System.out.println(descricao);
-                System.out.println(codDisciplina);
+//                System.out.println(nome);
+//               System.out.println(descricao);
+//                System.out.println(codDisciplina);
             }
 
             return disciplinas;
@@ -60,17 +60,18 @@ public class DisciplinaDAOMySQL implements IDisciplinaDAO {
 
             if(rs.next())
             {
-                String nome= rs.getNString(columnNome);
-                String idDisciplina= rs.getNString(columnCodDisciplina);
+                String nome= rs.getNString(columnNome) ;
+                String codDisciplina= rs.getNString(columnCodDisciplina);
                 String descricao = rs.getNString(columnDescricao);
 
-                System.out.println(nome);
-                System.out.println(idDisciplina);
-                System.out.println(descricao);
+//                System.out.println(nome);
+//                System.out.println(codDisciplina);
+//                System.out.println(descricao);
 
+                Disciplina disciplina=new Disciplina(nome,descricao);
+                disciplina.setCodDisciplina(codDisciplina);
 
-
-                return new Disciplina(nome,descricao);
+                return disciplina;
             }
 
 
@@ -85,7 +86,7 @@ public class DisciplinaDAOMySQL implements IDisciplinaDAO {
     public static void main(String[] args) {
         DisciplinaDAOMySQL disciplinaDAOMySQL =new DisciplinaDAOMySQL();
 
-        disciplinaDAOMySQL.getAllDisciplina();
+        disciplinaDAOMySQL.getDisciplina("CFC");
 
     }
 }

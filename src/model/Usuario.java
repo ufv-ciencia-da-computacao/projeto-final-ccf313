@@ -12,6 +12,7 @@ public class Usuario {
     protected Date data_nascimento;
     protected String formacao;
     protected List<Avaliacao> avaliacoes;
+    protected int tipoUsuario;
 
     public Usuario(String username, String nome, String formacao, Date data_nascimento) {
         this.username = username;
@@ -27,6 +28,16 @@ public class Usuario {
         this.data_nascimento = data_nascimento;
         this.avaliacoes = new ArrayList<Avaliacao>();
         this.descricao=descricao;
+
+    }
+    public Usuario(String username, String nome, String formacao, Date data_nascimento,String descricao,int tipoUsuario) {
+        this.username = username;
+        this.nome = nome;
+        this.formacao = formacao;
+        this.data_nascimento = data_nascimento;
+        this.avaliacoes = new ArrayList<Avaliacao>();
+        this.descricao=descricao;
+        this.tipoUsuario = tipoUsuario;
     }
 
     public List<Avaliacao> getAvaliacoes() {
@@ -75,6 +86,13 @@ public class Usuario {
 
     public void setFormacao(String formacao) {
         this.formacao = formacao;
+    }
+
+    public int getTipoUsuario(){
+        return tipoUsuario;
+    }
+    public void setTipoUsuario(int tipoUsuario){
+        this.tipoUsuario=tipoUsuario;
     }
 
     @Override
