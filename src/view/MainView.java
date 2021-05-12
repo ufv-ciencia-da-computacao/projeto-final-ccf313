@@ -9,6 +9,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Stack;
 import javax.swing.JPanel;
+import model.Usuario;
 
 /**
  *
@@ -17,6 +18,7 @@ import javax.swing.JPanel;
 public class MainView extends javax.swing.JFrame {
     
     private final Stack<JPanel> screen;
+    private Usuario loggedUser;
     
     /**
      * Creates new form MainView
@@ -62,9 +64,10 @@ public class MainView extends javax.swing.JFrame {
         this.menu.setVisible(false);
     }
     
-    public void abrirPaginaInicialView() {
+    public void abrirPaginaInicialView(Usuario user) {
         this.menu.setVisible(true);
         JPanel view = new PaginaInicialView(this);
+        this.loggedUser = user;
         // screen.add(view);
         this.setContentPane(view);
         this.revalidate();

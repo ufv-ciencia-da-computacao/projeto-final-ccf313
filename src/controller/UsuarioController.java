@@ -22,11 +22,12 @@ public class UsuarioController {
         this.usuarioDAO = usuarioDAO;
     }
 
-    public void addUser(String username, String nome, String formacao, Date data_nascimento) throws Exception {
-        if (getUser(username) != null) {
-            usuarioDAO.addUser(new Usuario(username, nome, formacao, data_nascimento));
-        } else {
+    public void addUser(String username, String nome, String formacao, Date data_nascimento) throws UsernameNaoUnico {
+        try {
+            getUser(username);
             throw new UsernameNaoUnico("Um usuario já foi cadastrado com o mesmo username!");
+        } catch(UsuarioNaoEncontradoException e) {
+            usuarioDAO.addUser(new Usuario(username, nome, formacao, data_nascimento));
         }
     }
 

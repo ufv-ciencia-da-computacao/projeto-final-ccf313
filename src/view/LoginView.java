@@ -5,7 +5,12 @@
  */
 package view;
 
+import controller.UsuarioController;
+import java.util.Date;
 import javax.swing.JFrame;
+import model.Usuario;
+import persistence.local.AvaliacaoDAO;
+import persistence.local.UsuarioDAO;
 
 /**
  *
@@ -14,6 +19,7 @@ import javax.swing.JFrame;
 public class LoginView extends javax.swing.JPanel {
     
     private final JFrame context;
+    private final UsuarioController usuarioController;
     
     /**
      * Creates new form Login
@@ -22,6 +28,15 @@ public class LoginView extends javax.swing.JPanel {
     public LoginView(JFrame context) {
         initComponents();
         this.context = context;
+        this.usuarioController = new UsuarioController(new UsuarioDAO(), new AvaliacaoDAO());
+        this.loginFailed.setVisible(false);
+        
+        // remove this
+        try {
+            this.usuarioController.addUser("a", "a", "a", new Date());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -35,10 +50,11 @@ public class LoginView extends javax.swing.JPanel {
 
         choice1 = new java.awt.Choice();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        username = new javax.swing.JTextField();
         entrar = new javax.swing.JButton();
         cadastrar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        loginFailed = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(700, 400));
         setMinimumSize(new java.awt.Dimension(700, 400));
@@ -47,10 +63,10 @@ public class LoginView extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel1.setText("Digite o email:");
 
-        jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        username.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                usernameActionPerformed(evt);
             }
         });
 
@@ -74,6 +90,9 @@ public class LoginView extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Entrar no sistema");
 
+        loginFailed.setForeground(new java.awt.Color(255, 0, 0));
+        loginFailed.setText("Usuário não encontrado");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,9 +104,12 @@ public class LoginView extends javax.swing.JPanel {
                         .addComponent(cadastrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(entrar))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(loginFailed))
+                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(183, 183, 183))
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -96,9 +118,11 @@ public class LoginView extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel2)
                 .addGap(125, 125, 125)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(loginFailed))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(entrar)
@@ -110,16 +134,22 @@ public class LoginView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrarActionPerformed
-        ((MainView) context).abrirPaginaInicialView();
+        String name = this.username.getText();
+        try {
+            Usuario user = usuarioController.getUser(name);
+            ((MainView) context).abrirPaginaInicialView(user);
+        } catch(Exception e) {
+            this.loginFailed.setVisible(true);
+        }
     }//GEN-LAST:event_entrarActionPerformed
 
     private void cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarActionPerformed
         ((MainView) context).abrirCadastrarUsuarioView();
     }//GEN-LAST:event_cadastrarActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_usernameActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -128,6 +158,7 @@ public class LoginView extends javax.swing.JPanel {
     private javax.swing.JButton entrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel loginFailed;
+    private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }
