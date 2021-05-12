@@ -71,10 +71,16 @@ public class MainView extends javax.swing.JFrame {
         // screen.add(view);
         this.setContentPane(view);
         this.revalidate();
+        
+        if(user.getTipoUsuario() == 0) {
+            this.adicionarAula.setEnabled(false);
+        } else {
+            this.adicionarAula.setEnabled(true);
+        }
     }
     
     public void abrirPerfilUsuarioView() {
-        JPanel view = new PerfilUsuarioView(this);
+        JPanel view = new PerfilUsuarioView(this, loggedUser);
         // screen.add(view);;
         this.setContentPane(view);
         this.revalidate();

@@ -33,7 +33,7 @@ public class LoginView extends javax.swing.JPanel {
         
         // remove this
         try {
-            this.usuarioController.addUser("a", "a", "a", new Date());
+            this.usuarioController.addUser("a", "a", "a", new Date(), "auto descrição", 0);
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }

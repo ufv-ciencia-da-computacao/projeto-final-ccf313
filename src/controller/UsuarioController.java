@@ -12,6 +12,8 @@ import javax.naming.OperationNotSupportedException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import model.Aluno;
+import model.Professor;
 
 public class UsuarioController {
     private IUsuarioDAO usuarioDAO;
@@ -22,12 +24,16 @@ public class UsuarioController {
         this.usuarioDAO = usuarioDAO;
     }
 
-    public void addUser(String username, String nome, String formacao, Date data_nascimento) throws UsernameNaoUnico {
+    public void addUser(String username, String nome, String formacao, Date data_nascimento, String descricao, int tipoDeUsuario) throws UsernameNaoUnico {
         try {
             getUser(username);
             throw new UsernameNaoUnico("Um usuario já foi cadastrado com o mesmo username!");
         } catch(UsuarioNaoEncontradoException e) {
-            usuarioDAO.addUser(new Usuario(username, nome, formacao, data_nascimento));
+            if(tipoDeUsuario == 1) {
+                usuarioDAO.addUser(new Professor(username, nome, formacao, data_nascimento, descricao));
+            } else {
+                usuarioDAO.addUser(new Aluno(username, nome, formacao, data_nascimento, descricao));    
+            }
         }
     }
 

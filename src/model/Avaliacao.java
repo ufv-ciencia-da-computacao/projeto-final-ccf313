@@ -18,9 +18,7 @@ public class Avaliacao {
         this.valor = valor;
         this.comentario=comentario;
     }
-
-
-
+    
     public Usuario getAvaliado() {
         return avaliado;
     }
