@@ -1,10 +1,14 @@
 package model;
 
+import java.util.Random;
+import java.util.UUID;
+
 public class Topico {
     private int id;
     private String descricao;
 
     public Topico(String descricao) {
+        this.id = UUID.randomUUID().variant();
         this.descricao = descricao;
     }
 

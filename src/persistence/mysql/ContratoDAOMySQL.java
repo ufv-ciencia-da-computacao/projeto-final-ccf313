@@ -88,7 +88,7 @@ public class ContratoDAOMySQL implements IContratoDAO {
         ContratoDAOMySQL contratoDAOMySQL=new ContratoDAOMySQL();
         Usuario usuario= new UsuarioDAOMySQL().getUser("dener");
         Aluno aluno= new Aluno(usuario.getUsername(), usuario.getNome(), usuario.getFormacao(), usuario.getDataNascimento(),
-                usuario.getDescricao(), usuario.getTipoUsuario());
+                usuario.getDescricao());
        // Contrato contrato= new Contrato(aluno,"",);
     }
 }

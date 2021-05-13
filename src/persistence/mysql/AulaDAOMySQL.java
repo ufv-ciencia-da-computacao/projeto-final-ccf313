@@ -121,7 +121,7 @@ public class AulaDAOMySQL implements IAulaDAO {
                 Disciplina disciplina= disciplinaDAOMySQL.getDisciplina(codDisciplina);
 
                 Professor professor=new Professor(userProfessor.getUsername(), userProfessor.getNome(), userProfessor.getFormacao(),
-                        userProfessor.getDataNascimento(), userProfessor.getDescricao(),userProfessor.getTipoUsuario());
+                        userProfessor.getDataNascimento(), userProfessor.getDescricao());
 
                 ArrayList<Topico> topicos = getTopicosDaAula(codAula);
                 Aula aula = new Aula(topicos,professor,valorHora,disciplina,descricao);
@@ -169,7 +169,7 @@ public class AulaDAOMySQL implements IAulaDAO {
 
 
                 Professor professor=new Professor(userProfessor.getUsername(), userProfessor.getNome(), userProfessor.getFormacao(),
-                        userProfessor.getDataNascimento(), userProfessor.getDescricao(),userProfessor.getTipoUsuario());
+                        userProfessor.getDataNascimento(), userProfessor.getDescricao());
 
                 ArrayList<Topico> topicos = getTopicosDaAula(codAula);
                 Aula aula = new Aula(topicos,professor,valorHora,disciplina,descricao);
@@ -295,7 +295,7 @@ public class AulaDAOMySQL implements IAulaDAO {
         Usuario usuario=  new UsuarioDAOMySQL().getUser("fabio");
 
         Professor professor=new Professor(usuario.getUsername(), usuario.getNome(), usuario.getFormacao(),
-                usuario.getDataNascimento(),usuario.getDescricao(), usuario.getTipoUsuario());
+                usuario.getDataNascimento(),usuario.getDescricao());
 
         Disciplina disciplina=new DisciplinaDAOMySQL().getDisciplina("CFC");
         disciplina.setCodDisciplina("MAF");
