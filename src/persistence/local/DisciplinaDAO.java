@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DisciplinaDAO implements IDisciplinaDAO {
-    private LocalDatabaseSingleton localDatabase;
+    private final LocalDatabaseSingleton localDatabase;
 
-    public DisciplinaDAO(LocalDatabaseSingleton localDatabase) {
+    public DisciplinaDAO() {
         this.localDatabase = LocalDatabaseSingleton.getInstance();
     }
 

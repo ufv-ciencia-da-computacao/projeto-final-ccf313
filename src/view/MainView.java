@@ -37,7 +37,7 @@ public class MainView extends javax.swing.JFrame {
     }
     
     public void abrirAdicionarAulaView() {
-        JPanel view = new AdicionarAulaView(this);
+        JPanel view = new AdicionarAulaView(this, loggedUser);
         // screen.push(view);
         this.setContentPane(view);
         this.revalidate();

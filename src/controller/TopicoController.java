@@ -28,12 +28,12 @@ public class TopicoController {
         topicoDAO.addTopico(topico);
     }
 
-    List<Topico> getAllTopicos() {
+    public List<Topico> getAllTopicos() {
         List<Topico> topicos = topicoDAO.getAllTopicos();
         return topicos;
     }
 
-    Topico getTopico(String descricao) throws TopicoNaoEncontrado {
+    public Topico getTopico(String descricao) throws TopicoNaoEncontrado {
         List<Topico> topicos = topicoDAO.getAllTopicos();
         Topico top = null;
         for (Topico t:topicos) {
