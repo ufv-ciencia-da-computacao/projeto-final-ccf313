@@ -6,7 +6,10 @@
 package view;
 
 import controller.DisciplinaController;
+import controller.ProfessorController;
 import controller.TopicoController;
+import controller.UsuarioController;
+import exceptions.DisciplinaNaoEncontrada;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractListModel;
@@ -16,6 +19,8 @@ import javax.swing.JFrame;
 import model.Disciplina;
 import model.Topico;
 import model.Usuario;
+import persistence.local.AulaDAO;
+import persistence.local.ContratoDAO;
 import persistence.local.DisciplinaDAO;
 import persistence.local.UsuarioDAO;
 import persistence.local.TopicoDAO;
@@ -25,6 +30,9 @@ import persistence.local.TopicoDAO;
  * @author dener
  */
 public class AdicionarAulaView extends javax.swing.JPanel {
+    
+    private final String VALOR_INVALIDO = "Valor Inválido";
+    private final String TOPICO_INVALIDO = "Selecione um Tópico";
     
     private final JFrame context;
     private final Usuario user;
@@ -39,6 +47,8 @@ public class AdicionarAulaView extends javax.swing.JPanel {
     private final DisciplinaController disciplinaController;
     private DefaultComboBoxModel<String> disciplinasModel;
     private final List<Disciplina> allDisciplinas;
+    
+    private final ProfessorController professorController;
     
     /**
      * Creates new form AdicionarAulaView
@@ -61,9 +71,16 @@ public class AdicionarAulaView extends javax.swing.JPanel {
         
         this.disciplinaController = new DisciplinaController(new DisciplinaDAO());
         this.allDisciplinas = disciplinaController.getAll();
+        this.disciplinasModel = new DefaultComboBoxModel<>();
+        this.disciplina.setModel(disciplinasModel);
         for(Disciplina d : allDisciplinas) {
-            disciplinasModel.addElement(d.getCodDisciplina());
+            disciplinasModel.addElement(d.getDescricao());
         }
+        
+        professorController = new ProfessorController(new AulaDAO(), new TopicoDAO(), new UsuarioDAO(), new DisciplinaDAO(), new ContratoDAO());
+        
+        this.valorInvalido.setText("");
+        this.topicoInvalido.setText("");
         
         atualizarTopicos();
     }
@@ -92,6 +109,8 @@ public class AdicionarAulaView extends javax.swing.JPanel {
         salvar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
         listaTopicos = new javax.swing.JComboBox<>();
+        valorInvalido = new javax.swing.JLabel();
+        topicoInvalido = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(700, 400));
         setMinimumSize(new java.awt.Dimension(700, 400));
@@ -149,6 +168,12 @@ public class AdicionarAulaView extends javax.swing.JPanel {
 
         listaTopicos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        valorInvalido.setForeground(new java.awt.Color(255, 0, 0));
+        valorInvalido.setText("Valor Inválido");
+
+        topicoInvalido.setForeground(new java.awt.Color(255, 0, 0));
+        topicoInvalido.setText("Selecione um Tópico");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -169,18 +194,23 @@ public class AdicionarAulaView extends javax.swing.JPanel {
                                 .addComponent(jLabel1)
                                 .addComponent(disciplina, 0, 250, Short.MAX_VALUE)
                                 .addComponent(valor)
-                                .addComponent(jLabel3))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(valorInvalido)))
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(208, 208, 208))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(listaTopicos, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(addTopico)))))
+                                .addComponent(addTopico))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(topicoInvalido))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
@@ -190,16 +220,19 @@ public class AdicionarAulaView extends javax.swing.JPanel {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(topicoInvalido))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(disciplina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(listaTopicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addTopico))
+                    .addComponent(addTopico)
+                    .addComponent(listaTopicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(valorInvalido))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(valor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -223,6 +256,7 @@ public class AdicionarAulaView extends javax.swing.JPanel {
         int topicoIndex = listaTopicos.getSelectedIndex();
         Topico t = allTopicos.get(topicoIndex);
         adicionarTopico(t);
+        atualizarTopicos();
     }//GEN-LAST:event_addTopicoActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
@@ -230,9 +264,27 @@ public class AdicionarAulaView extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
+        this.valorInvalido.setText("");
+        this.topicoInvalido.setText("");
+        
         int indexDisciplina = disciplina.getSelectedIndex();
-        
-        
+        double valor = 0;
+        List<Integer> topicosID = new ArrayList<>();
+        for(Topico t : topicosEscolhidos) {
+            topicosID.add(t.getId());
+        }
+        try {
+            if(topicosID.isEmpty()) this.topicoInvalido.setText(TOPICO_INVALIDO);
+            valor = Double.parseDouble(this.valor.getText());
+            if(!topicosID.isEmpty()) {
+                professorController.addAula(user.getUsername(), allDisciplinas.get(indexDisciplina).getNome(), valor, topicosID, this.descricao.getText());
+                ((MainView) context).abrirPaginaInicialView(user);
+            }
+        } catch(DisciplinaNaoEncontrada e) {
+            System.out.println(e.getMessage());
+        } catch(Exception e) {
+            valorInvalido.setText(VALOR_INVALIDO);
+        }
     }//GEN-LAST:event_salvarActionPerformed
     
     public void atualizarTopicos() {
@@ -263,7 +315,9 @@ public class AdicionarAulaView extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox<String> listaTopicos;
     private javax.swing.JButton salvar;
+    private javax.swing.JLabel topicoInvalido;
     private javax.swing.JList<String> topicos;
     private javax.swing.JTextField valor;
+    private javax.swing.JLabel valorInvalido;
     // End of variables declaration//GEN-END:variables
 }
