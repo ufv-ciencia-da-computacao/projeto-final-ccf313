@@ -8,7 +8,7 @@ public class Topico {
     private String descricao;
 
     public Topico(String descricao) {
-        this.id = UUID.randomUUID().variant();
+        this.id = UUID.randomUUID().hashCode();
         this.descricao = descricao;
     }
 

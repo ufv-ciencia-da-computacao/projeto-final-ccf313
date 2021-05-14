@@ -54,21 +54,25 @@ public class LocalDatabaseSingleton {
     
     private void mockUsuarios() {
         Aluno aluno = new Aluno("gegen07", "Germano", "Graduando", new java.util.Date(2001-1900,8,5), "");
-        Professor professor = new Professor("dener", "Dener", "Graduando", new java.util.Date(2001-1900,8,5), "");
-        
+        Professor professor1 = new Professor("dener", "Dener", "Graduando", new java.util.Date(2001-1900,8,5), "");
+        Professor professor2 = new Professor("fabio", "Fabio", "Graduando", new java.util.Date(2001-1900,8,5), "");
         usuarios.put(aluno.getUsername(), aluno);
-        usuarios.put(professor.getUsername(), professor);
+        usuarios.put(professor1.getUsername(), professor1);
+        usuarios.put(professor2.getUsername(), professor2);
     }
     
     private void mockAulas() {
-        List<Topico> top = new ArrayList<Topico>();
+        List<Topico> top = new ArrayList<>();
         for (Map.Entry<Integer, Topico> pair : this.topicos.entrySet()) {
             if (pair.getValue().getDescricao().equals("cálculo")) {
                 top.add(pair.getValue());
             }
         }
-        Aula aula = new Aula(top, (Professor) usuarios.get("dener"), 30.5, disciplinas.get("Cálculo 1"), "");
-        aulas.put(aula.getCodAula(), aula);
+        Aula aula1 = new Aula(top, (Professor) usuarios.get("dener"), 30.5, disciplinas.get("Cálculo 1"), "Melhor professor de cálculo já visto na Terra");
+        aulas.put(aula1.getCodAula(), aula1);
+       
+        Aula aula2 = new Aula(top, (Professor) usuarios.get("fabio"), 20.5, disciplinas.get("Física"), "Melhor professor de Física já visto na Terra");
+        aulas.put(aula2.getCodAula(), aula2);
     }
 
     public static LocalDatabaseSingleton getInstance() {
