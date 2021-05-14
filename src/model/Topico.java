@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
@@ -26,5 +27,23 @@ public class Topico {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Topico topico = (Topico) o;
+        return Objects.equals(descricao, topico.descricao);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, descricao);
+    }
+
+    @Override
+    public String toString() {
+        return this.descricao;
     }
 }

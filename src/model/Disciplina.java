@@ -50,4 +50,11 @@ public class Disciplina {
     public int hashCode() {
         return Objects.hash(codDisciplina);
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
+    
+    
 }

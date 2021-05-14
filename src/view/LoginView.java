@@ -140,6 +140,7 @@ public class LoginView extends javax.swing.JPanel {
             Usuario user = usuarioController.getUser(name);
             ((MainView) context).abrirPaginaInicialView(user);
         } catch(Exception e) {
+            e.printStackTrace();
             this.loginFailed.setVisible(true);
         }
     }//GEN-LAST:event_entrarActionPerformed

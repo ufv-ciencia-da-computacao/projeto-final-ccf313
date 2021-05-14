@@ -32,9 +32,9 @@ public class FeedController {
         return aula;
     }
 
-    public List<Aula> getAulaPorDisciplina(String codDisciplina) throws DisciplinaNaoEncontrada {
-        Disciplina disciplina = disciplinaDAO.getDisciplina(codDisciplina);
+    public List<Aula> getAulaPorDisciplina(String nome) throws DisciplinaNaoEncontrada {
+        Disciplina disciplina = disciplinaDAO.getDisciplina(nome);
         if (disciplina == null) throw new DisciplinaNaoEncontrada("Disciplina nao encontrada!");
-        return aulaDAO.getAulaByDisciplina(disciplina.getCodDisciplina());
+        return aulaDAO.getAulaByDisciplina(disciplina.getNome());
     }
 }

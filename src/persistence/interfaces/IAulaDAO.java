@@ -10,7 +10,7 @@ public interface IAulaDAO {
     void addAula(Aula aula);
     void updateAula(Aula aula);
     Aula getAula(String codAula);
-    List<Aula> getAulaByDisciplina(String codDisciplina);
+    List<Aula> getAulaByDisciplina(String nome);
     List<Aula> getAllAulas();
     void deleteAula(String codAula);
 }

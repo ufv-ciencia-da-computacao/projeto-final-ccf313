@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IDisciplinaDAO {
     List<Disciplina> getAllDisciplina();
-    Disciplina getDisciplina(String codDiscplina);
+    Disciplina getDisciplina(String nome);
 }

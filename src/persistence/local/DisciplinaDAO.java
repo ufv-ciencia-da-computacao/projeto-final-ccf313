@@ -19,7 +19,7 @@ public class DisciplinaDAO implements IDisciplinaDAO {
     }
 
     @Override
-    public Disciplina getDisciplina(String codDiscplina) {
-        return this.localDatabase.disciplinas.get(codDiscplina);
+    public Disciplina getDisciplina(String nome) {
+        return this.localDatabase.disciplinas.get(nome);
     }
 }

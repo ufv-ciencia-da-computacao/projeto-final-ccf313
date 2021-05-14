@@ -68,6 +68,7 @@ public class LocalDatabaseSingleton {
                 top.add(pair.getValue());
             }
         }
+
         Aula aula1 = new Aula(top, (Professor) usuarios.get("dener"), 30.5, disciplinas.get("Cálculo 1"), "Melhor professor de cálculo já visto na Terra");
         aulas.put(aula1.getCodAula(), aula1);
        

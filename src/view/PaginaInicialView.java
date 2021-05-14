@@ -5,14 +5,23 @@
  */
 package view;
 
+import controller.DisciplinaController;
 import controller.FeedController;
+import controller.TopicoController;
+import controller.UsuarioController;
+import exceptions.DisciplinaNaoEncontrada;
 import java.util.ArrayList;
-import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import javax.swing.*;
+
 import model.Aula;
+import model.Disciplina;
+import model.Professor;
 import model.Topico;
-import persistence.local.AulaDAO;
-import persistence.local.DisciplinaDAO;
+import persistence.local.*;
 
 /**
  *
@@ -21,10 +30,23 @@ import persistence.local.DisciplinaDAO;
 public class PaginaInicialView extends javax.swing.JPanel {
     
     private final JFrame context;
-    private final ArrayList<Aula> arrAulas;
+    
+    private ArrayList<Aula> arrAulas;
     private ArrayList<Aula> aulasMostradas;
+    
+    private final List<Professor> professores;
+    private final List<Disciplina> disciplinas;
+    private final List<Topico> topicos;
+    
     private final DefaultListModel<String> modelTopicos;
+    private final GenericComboModel<Professor> modelProfessorCombo;
+    private final GenericComboModel<Topico> modelTopicosCombo;
+    private final GenericComboModel<Disciplina> modelDisciplinaCombo;
+    
     private final FeedController feedController;
+    private final UsuarioController usuarioController;
+    private final TopicoController topicoController;
+    private final DisciplinaController disciplinaController;
     int index = 0;
     
     /**
@@ -36,13 +58,29 @@ public class PaginaInicialView extends javax.swing.JPanel {
         modelTopicos = new DefaultListModel<>();
         
         this.feedController = new FeedController(new AulaDAO(), new DisciplinaDAO());
+        this.usuarioController = new UsuarioController(new UsuarioDAO(), new AvaliacaoDAO());
+        this.topicoController = new TopicoController(new UsuarioDAO(), new TopicoDAO());
+        this.disciplinaController = new DisciplinaController(new DisciplinaDAO());
+
+        this.professores = (ArrayList<Professor>) usuarioController.getProfessores();
+        this.disciplinas = (ArrayList<Disciplina>) disciplinaController.getAll();
+        this.topicos = (ArrayList<Topico>) topicoController.getAllTopicos();
+
+        modelProfessorCombo = new GenericComboModel<Professor>(this.professores);
+        modelTopicosCombo = new GenericComboModel<Topico>(this.topicos);
+        modelDisciplinaCombo = new GenericComboModel<Disciplina>(this.disciplinas);
+
         arrAulas = (ArrayList<Aula>) feedController.getAllAulas();
         this.aulasMostradas = (ArrayList<Aula>) this.arrAulas.clone();
         jTextArea1.setEditable(false);
         jList1.setModel(modelTopicos);
         
-        updateAula(this.index);
+        jComboBox1.setModel(modelDisciplinaCombo);
+        jComboBox2.setModel(modelTopicosCombo);
+        jComboBox3.setModel(modelProfessorCombo);
         
+        updateAula(this.index);
+        jLabel16.setVisible(false);
     }
     
     private void updateAula(int index) {
@@ -50,16 +88,15 @@ public class PaginaInicialView extends javax.swing.JPanel {
         jLabel10.setText(aula.getDisciplina().getNome());
         jLabel9.setText(aula.getProfessor().getNome());
         jLabel7.setText(String.format("%,.2f", aula.getValorHora()));
-        
+
         this.modelTopicos.removeAllElements();
 
         for (Topico top : aula.getTopicos()) {
             this.modelTopicos.addElement(top.getDescricao());
         }
-        
+
         jTextArea1.setText(aula.getDescricao());
         verifyLimitAulas();
-
     }
 
 
@@ -103,6 +140,7 @@ public class PaginaInicialView extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(700, 400));
         setMinimumSize(new java.awt.Dimension(700, 400));
@@ -240,23 +278,36 @@ public class PaginaInicialView extends javax.swing.JPanel {
 
         jLabel3.setText("Disciplina:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new GenericComboModel<Disciplina>(this.disciplinas));
 
         jLabel4.setText("Tópico:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new GenericComboModel<Topico>(this.topicos));
 
         jLabel5.setText("Professor:");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.setModel(new GenericComboModel<Professor>(this.professores));
 
         jLabel6.setText("Valor Min:");
 
-        jButton1.setText("Filtrar");
+        jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Cancelar");
+        jButton2.setText("Resetar Filtros");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Valor Max:");
+
+        jLabel16.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel16.setText("Não foi encontrado nenhuma Aula");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -281,12 +332,15 @@ public class PaginaInicialView extends javax.swing.JPanel {
                             .addComponent(jTextField2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
-                                .addGap(0, 42, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -317,7 +371,9 @@ public class PaginaInicialView extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel16)
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -358,6 +414,84 @@ public class PaginaInicialView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_contratarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        arrAulas = (ArrayList<Aula>) this.feedController.getAllAulas();
+
+        Topico topico = (Topico) jComboBox2.getSelectedItem();
+        Disciplina disciplina = (Disciplina) jComboBox1.getSelectedItem();
+        Professor professor = (Professor) jComboBox3.getSelectedItem();
+
+        if (disciplina != null) {
+            try {
+                arrAulas = (ArrayList<Aula>) this.feedController.getAulaPorDisciplina(disciplina.getNome());
+            } catch (DisciplinaNaoEncontrada ex) {
+                Logger.getLogger(PaginaInicialView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        if (professor != null) {
+            arrAulas =
+                (ArrayList<Aula>) arrAulas.stream()
+                        .filter(a -> a.getProfessor().getUsername().equals(professor.getUsername()))
+                .collect(Collectors.toList());
+        }
+
+        List<Aula> toRemove = new ArrayList<>();
+
+        if (topico != null) {
+            int flag = 0;
+            for (Aula arrAula : arrAulas) {
+                flag=0;
+                for (Topico top : arrAula.getTopicos()) {
+                    if (top.getId()==topico.getId()) { 
+                        flag=1;
+                        break;
+                    }
+                }
+                if(flag==0) {
+                    toRemove.add(arrAula);
+                }
+            }
+            arrAulas.removeAll(toRemove);
+        }
+
+        String ValorMin = jTextField1.getText();
+        String ValorMax = jTextField2.getText();
+
+        if (!ValorMin.isEmpty()) {
+            double valorMin = Double.parseDouble(ValorMin);
+            arrAulas = (ArrayList<Aula>) arrAulas.stream()
+                    .filter(a -> a.getValorHora() >= valorMin)
+                    .collect(Collectors.toList());
+        }
+
+        if (!ValorMax.isEmpty()) {
+            double valorMax = Double.parseDouble(ValorMax);
+            arrAulas = (ArrayList<Aula>) arrAulas.stream()
+                    .filter(a -> a.getValorHora() <= valorMax)
+                    .collect(Collectors.toList());
+        }
+
+        aulasMostradas = (ArrayList<Aula>) arrAulas.clone();
+        if (aulasMostradas.size() != 0) {
+            this.index = 0;
+            updateAula(this.index);
+            jLabel16.setVisible(false);
+        } else {
+            arrAulas = (ArrayList<Aula>) this.feedController.getAllAulas();
+            aulasMostradas = (ArrayList<Aula>) arrAulas.clone();
+            jLabel16.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jComboBox2.setSelectedIndex(-1);
+        jComboBox1.setSelectedIndex(-1);
+        jComboBox3.setSelectedIndex(-1);
+        jTextField1.setText("");
+        jTextField2.setText("");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void verifyLimitAulas() {
         if (this.index == aulasMostradas.size()-1) {
             jButton4.setEnabled(false);
@@ -378,9 +512,9 @@ public class PaginaInicialView extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<Disciplina> jComboBox1;
+    private javax.swing.JComboBox<Topico> jComboBox2;
+    private javax.swing.JComboBox<Professor> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -388,6 +522,7 @@ public class PaginaInicialView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
