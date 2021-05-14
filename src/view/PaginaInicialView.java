@@ -88,6 +88,7 @@ public class PaginaInicialView extends javax.swing.JPanel {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        contratar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -156,6 +157,13 @@ public class PaginaInicialView extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jLabel15.setText("Professor");
 
+        contratar.setText("Contratar");
+        contratar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contratarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
         panel1Layout.setHorizontalGroup(
@@ -183,10 +191,12 @@ public class PaginaInicialView extends javax.swing.JPanel {
                                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel13)
-                                .addGap(0, 168, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(panel1Layout.createSequentialGroup()
                                 .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                                .addComponent(contratar)
+                                .addGap(105, 105, 105)
                                 .addComponent(jButton4)))
                         .addContainerGap())))
         );
@@ -217,7 +227,8 @@ public class PaginaInicialView extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(jButton4)
+                    .addComponent(contratar))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
@@ -343,6 +354,10 @@ public class PaginaInicialView extends javax.swing.JPanel {
         updateAula(this.index);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void contratarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contratarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contratarActionPerformed
+
     private void verifyLimitAulas() {
         if (this.index == aulasMostradas.size()-1) {
             jButton4.setEnabled(false);
@@ -358,6 +373,7 @@ public class PaginaInicialView extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton contratar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
