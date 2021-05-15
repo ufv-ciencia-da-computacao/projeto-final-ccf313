@@ -24,6 +24,10 @@ public class Aula {
         this.descricao = descricao;
         this.codAula=UUID.randomUUID().toString();
     }
+    public Aula(String codAula,List<Topico> topicos, Professor professor, double valorHora, Disciplina disciplina, String descricao) {
+        this(topicos, professor, valorHora, disciplina,descricao);
+        this.codAula=codAula;
+    }
 
     public String getCodAula() {
         return codAula;

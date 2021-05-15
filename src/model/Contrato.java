@@ -23,6 +23,15 @@ public class Contrato {
         this(aluno, aula, dataComeco);
         this.dataFinal = dataFinal;
     }
+    public Contrato(Aluno aluno, Aula aula, Date dataComeco, Date dataFinal,ContratoEtapa contratoEtapa) {
+        this(aluno, aula, dataComeco);
+        this.dataFinal = dataFinal;
+        this.etapas=contratoEtapa;
+    }
+    public Contrato(String codContrato,Aluno aluno, Aula aula, Date dataComeco, Date dataFinal,ContratoEtapa contratoEtapa) {
+        this(aluno, aula, dataComeco,dataFinal,contratoEtapa);
+       this.codContrato=codContrato;
+    }
 
     public String getCodContrato() {
         return codContrato;
@@ -66,5 +75,8 @@ public class Contrato {
 
     public void setDataFinal(Date dataFinal) {
         this.dataFinal = dataFinal;
+    }
+    public void setCodContrato(String codContrato) {
+        this.codContrato = codContrato;
     }
 }

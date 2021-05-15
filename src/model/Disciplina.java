@@ -8,10 +8,15 @@ public class Disciplina {
     private String nome;
     private String descricao;
 
+
     public Disciplina(String nome, String descricao) {
         this.nome = nome;
         this.descricao = descricao;
         this.codDisciplina = UUID.randomUUID().toString();
+    }
+    public Disciplina(String codDisciplina,String nome, String descricao) {
+        this(nome,descricao);
+        this.codDisciplina = codDisciplina;
     }
 
     public String getNome() {

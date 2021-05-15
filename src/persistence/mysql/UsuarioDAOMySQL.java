@@ -22,10 +22,6 @@ public class UsuarioDAOMySQL implements IUsuarioDAO {
     final String SELECT_ALL_USERS="SELECT * FROM usuario;";
 
 
-
-
-
-
     @Override
     public void addUser(Usuario usuario) {
         Connection connection = ConnectionFactory.getConnection();
@@ -39,7 +35,8 @@ public class UsuarioDAOMySQL implements IUsuarioDAO {
             ps.setString(4, usuario.getFormacao());
             ps.setString(5, usuario.getUsername());
             ps.setInt(6, usuario.getTipoUsuario());
-            int i=ps.executeUpdate();
+
+            ps.executeUpdate();
         }catch (SQLException  e){
             e.printStackTrace();
         }
@@ -63,13 +60,6 @@ public class UsuarioDAOMySQL implements IUsuarioDAO {
                 String userName= rs.getNString(columnUsername);
                 int tipoUsuario= rs.getInt(columnTipoUsuario);
 
-//                System.out.println(userName);
-//                System.out.println(descricao);
-//                System.out.println(formacao);
-//                System.out.println(nome);
-//                System.out.println(dataNascimento);
-//                System.out.println(tipoUsuario);
-
 
                 return new Usuario(userName,nome,formacao,
                         dataNascimento,descricao,tipoUsuario);
@@ -79,7 +69,6 @@ public class UsuarioDAOMySQL implements IUsuarioDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
 
         return null;
     }
@@ -107,12 +96,6 @@ public class UsuarioDAOMySQL implements IUsuarioDAO {
                         dataNascimento,descricao,tipoUsuario);
 
                 usuarios.add(user);
-//                System.out.println(userName);
-//                System.out.println(descricao);
-//                System.out.println(formacao);
-//                System.out.println(nome);
-//                System.out.println(dataNascimento);
-//                System.out.println(tipoUsuario);
             }
 
             return usuarios;
@@ -125,17 +108,4 @@ public class UsuarioDAOMySQL implements IUsuarioDAO {
         return null;
     }
 
-    public static void main(String[] args) {
-       UsuarioDAOMySQL usuarioDAOMySQL=new UsuarioDAOMySQL();
-//        Usuario usuario=new Usuario("dener","Dener","talarico",
-//             new Date(2001-1900,2,12),"raspa canela",1);
-//        Usuario usuario3=new Usuario("Fabio","fabio","lindeza",
-//                new java.util.Date(2001-1900,8,5),"top d+");
-//      Usuario usuario=new Usuario("gegen07","Germano Barcelos","vagabundo",
-//             new Date(2001-1900,2,25),"ze cabeça",0);
-       // usuarioDAOMySQL.addUser(usuario3);
-//        usuarioDAOMySQL.getUser("dener");
-        usuarioDAOMySQL.getAllUser();
-
-    }
 }

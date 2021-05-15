@@ -8,5 +8,4 @@ public interface ITopicoDAO {
     void addTopico(Topico topico);
     List<Topico> getAllTopicos();
     Topico getTopico(int id);
-    void deleteTopico(int id);
 }

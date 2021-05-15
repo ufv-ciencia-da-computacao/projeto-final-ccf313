@@ -4,8 +4,15 @@ public class Topico {
     private int id;
     private String descricao;
 
+
+
     public Topico(String descricao) {
         this.descricao = descricao;
+    }
+    public Topico(int id,String descricao) {
+        this(descricao);
+        this.id=id;
+
     }
 
     public String getDescricao() {

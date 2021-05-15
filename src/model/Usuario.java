@@ -19,14 +19,14 @@ public class Usuario {
         this.nome = nome;
         this.formacao = formacao;
         this.data_nascimento = data_nascimento;
-        this.avaliacoes = new ArrayList<Avaliacao>();
+        this.avaliacoes = new ArrayList<>();
     }
     public Usuario(String username, String nome, String formacao, Date data_nascimento,String descricao) {
         this.username = username;
         this.nome = nome;
         this.formacao = formacao;
         this.data_nascimento = data_nascimento;
-        this.avaliacoes = new ArrayList<Avaliacao>();
+        this.avaliacoes = new ArrayList<>();
         this.descricao=descricao;
 
     }
@@ -35,10 +35,11 @@ public class Usuario {
         this.nome = nome;
         this.formacao = formacao;
         this.data_nascimento = data_nascimento;
-        this.avaliacoes = new ArrayList<Avaliacao>();
+        this.avaliacoes = new ArrayList<>();
         this.descricao=descricao;
         this.tipoUsuario = tipoUsuario;
     }
+
 
     public List<Avaliacao> getAvaliacoes() {
         return avaliacoes;

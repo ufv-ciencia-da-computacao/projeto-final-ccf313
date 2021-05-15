@@ -11,4 +11,14 @@ public enum ContratoEtapa {
     public int getId() {
         return id;
     }
+
+    public static ContratoEtapa identificarPorId(int id){
+        if (id==0){
+            return ContratoEtapa.NEGOCIACAO;
+        }else if(id==1){
+            return ContratoEtapa.ACEITO;
+        }else{
+            return ContratoEtapa.DECLINADO;
+        }
+    }
 }
