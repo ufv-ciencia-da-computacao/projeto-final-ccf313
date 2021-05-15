@@ -5,6 +5,7 @@ import persistence.interfaces.ITopicoDAO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class TopicoDAO implements ITopicoDAO {
     private final LocalDatabaseSingleton localInstance;

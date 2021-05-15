@@ -53,7 +53,7 @@ public class ProfessorController {
         if (aulaToDelete.getProfessor().equals(prof)) {
             aulaDAO.deleteAula(codAula);
         } else {
-            throw new UnsafeOperation("Operação realizada sem sucesso!");
+            throw new UnsafeOperation("Operação nao pode ser realizada!");
         }
     }
 

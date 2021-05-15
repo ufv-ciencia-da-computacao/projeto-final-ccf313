@@ -11,7 +11,7 @@ import java.util.Map;
 public class ContratoDAO implements IContratoDAO {
     LocalDatabaseSingleton localDatabase;
 
-    public ContratoDAO(LocalDatabaseSingleton localDatabase) {
+    public ContratoDAO() {
         this.localDatabase = LocalDatabaseSingleton.getInstance();
     }
 

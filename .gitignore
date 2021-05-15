@@ -57,6 +57,3 @@ nbdist/
 .nb-gradle/
 
 *.iml
-
-# netbeans folder
-nbproject/

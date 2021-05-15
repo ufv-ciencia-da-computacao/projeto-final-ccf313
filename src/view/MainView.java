@@ -9,6 +9,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Stack;
 import javax.swing.JPanel;
+import model.Usuario;
 
 /**
  *
@@ -17,6 +18,7 @@ import javax.swing.JPanel;
 public class MainView extends javax.swing.JFrame {
     
     private final Stack<JPanel> screen;
+    private Usuario loggedUser;
     
     /**
      * Creates new form MainView
@@ -35,7 +37,7 @@ public class MainView extends javax.swing.JFrame {
     }
     
     public void abrirAdicionarAulaView() {
-        JPanel view = new AdicionarAulaView(this);
+        JPanel view = new AdicionarAulaView(this, loggedUser);
         // screen.push(view);
         this.setContentPane(view);
         this.revalidate();
@@ -62,16 +64,23 @@ public class MainView extends javax.swing.JFrame {
         this.menu.setVisible(false);
     }
     
-    public void abrirPaginaInicialView() {
+    public void abrirPaginaInicialView(Usuario user) {
         this.menu.setVisible(true);
         JPanel view = new PaginaInicialView(this);
+        this.loggedUser = user;
         // screen.add(view);
         this.setContentPane(view);
         this.revalidate();
+        
+        if(user.getTipoUsuario() == 0) {
+            this.adicionarAula.setEnabled(false);
+        } else {
+            this.adicionarAula.setEnabled(true);
+        }
     }
     
     public void abrirPerfilUsuarioView() {
-        JPanel view = new PerfilUsuarioView(this);
+        JPanel view = new PerfilUsuarioView(this, loggedUser);
         // screen.add(view);;
         this.setContentPane(view);
         this.revalidate();
