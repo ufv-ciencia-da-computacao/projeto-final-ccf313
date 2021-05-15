@@ -21,7 +21,8 @@ import model.Aula;
 import model.Disciplina;
 import model.Professor;
 import model.Topico;
-import persistence.local.*;
+import persistence.mysql.*;
+
 
 /**
  *
@@ -57,10 +58,10 @@ public class PaginaInicialView extends javax.swing.JPanel {
         this.context = context;
         modelTopicos = new DefaultListModel<>();
         
-        this.feedController = new FeedController(new AulaDAO(), new DisciplinaDAO());
-        this.usuarioController = new UsuarioController(new UsuarioDAO(), new AvaliacaoDAO());
-        this.topicoController = new TopicoController(new UsuarioDAO(), new TopicoDAO());
-        this.disciplinaController = new DisciplinaController(new DisciplinaDAO());
+        this.feedController = new FeedController(new AulaDAOMySQL(), new DisciplinaDAOMySQL());
+        this.usuarioController = new UsuarioController(new UsuarioDAOMySQL(), new AvaliacaoDAOMySQL());
+        this.topicoController = new TopicoController(new UsuarioDAOMySQL(), new TopicoDAOMySQL());
+        this.disciplinaController = new DisciplinaController(new DisciplinaDAOMySQL());
 
         this.professores = (ArrayList<Professor>) usuarioController.getProfessores();
         this.disciplinas = (ArrayList<Disciplina>) disciplinaController.getAll();

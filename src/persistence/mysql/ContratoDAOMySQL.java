@@ -111,7 +111,7 @@ public class ContratoDAOMySQL implements IContratoDAO {
 
                 Usuario usuario = new UsuarioDAOMySQL ( ).getUser ( usernameAluno );
                 Aluno aluno = new Aluno ( usuario.getUsername ( ) , usuario.getNome ( ) , usuario.getFormacao ( ) , usuario.getDataNascimento ( ) ,
-                        usuario.getDescricao ( ) , usuario.getTipoUsuario ( ) );
+                        usuario.getDescricao ( )  );
 
                 Aula aula = new AulaDAOMySQL ( ).getAula ( codAula );
 
@@ -148,7 +148,7 @@ public class ContratoDAOMySQL implements IContratoDAO {
 
                 Usuario usuario = new UsuarioDAOMySQL ( ).getUser ( usernameAluno );
                 Aluno aluno = new Aluno ( usuario.getUsername ( ) , usuario.getNome ( ) , usuario.getFormacao ( ) ,
-                        usuario.getDataNascimento ( ) , usuario.getDescricao ( ) , usuario.getTipoUsuario ( ) );
+                        usuario.getDataNascimento ( ) , usuario.getDescricao ( )  );
                 Aula aula = new AulaDAOMySQL ( ).getAula ( codAula );
 
                 Contrato contrato = new Contrato ( codContrato , aluno , aula , dataInicio , dataFinal ,
@@ -192,8 +192,7 @@ public class ContratoDAOMySQL implements IContratoDAO {
                         usuario.getNome ( ) ,
                         usuario.getFormacao ( ) ,
                         usuario.getDataNascimento ( ) ,
-                        usuario.getDescricao ( ) ,
-                        usuario.getTipoUsuario ( ) );
+                        usuario.getDescricao ( ) );
 
                 Aula aula = new AulaDAOMySQL( ).getAula ( codAula );
 
@@ -239,7 +238,7 @@ public class ContratoDAOMySQL implements IContratoDAO {
 
                 Usuario usuario = new UsuarioDAOMySQL ( ).getUser ( usernameAluno );
                 Aluno aluno = new Aluno ( usuario.getUsername ( ) , usuario.getNome ( ) , usuario.getFormacao ( ) , usuario.getDataNascimento ( ) ,
-                        usuario.getDescricao ( ) , usuario.getTipoUsuario ( ) );
+                        usuario.getDescricao ( )  );
 
                 Aula aula = new AulaDAOMySQL ( ).getAula ( codAula );
 

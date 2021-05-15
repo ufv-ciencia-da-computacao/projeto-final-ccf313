@@ -5,7 +5,7 @@ import model.Usuario;
 import java.util.ArrayList;
 
 public interface IUsuarioDAO {
-    public void addUser(Usuario usuario);
-    public Usuario getUser(String usuario);
-    public ArrayList<Usuario> getAllUser();
+     void addUser(Usuario usuario);
+     Usuario getUser(String usuario);
+     ArrayList<Usuario> getAllUser();
 }

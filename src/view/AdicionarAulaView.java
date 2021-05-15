@@ -8,22 +8,19 @@ package view;
 import controller.DisciplinaController;
 import controller.ProfessorController;
 import controller.TopicoController;
-import controller.UsuarioController;
+
 import exceptions.DisciplinaNaoEncontrada;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.AbstractListModel;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import model.Disciplina;
 import model.Topico;
 import model.Usuario;
-import persistence.local.AulaDAO;
-import persistence.local.ContratoDAO;
-import persistence.local.DisciplinaDAO;
-import persistence.local.UsuarioDAO;
-import persistence.local.TopicoDAO;
+
+import persistence.mysql.*;
 
 /**
  *
@@ -59,8 +56,11 @@ public class AdicionarAulaView extends javax.swing.JPanel {
         
         this.context = context;
         this.user = user;
+        System.out.println(user.getUsername());
         this.topicosModel = new DefaultListModel();
-        this.topicoController = new TopicoController(new UsuarioDAO(), new TopicoDAO());
+        this.topicoController = new TopicoController(new UsuarioDAOMySQL(),
+                new TopicoDAOMySQL());
+
         this.topicos.setModel(topicosModel);
         this.topicosEscolhidos = new ArrayList<>();
         
@@ -69,7 +69,7 @@ public class AdicionarAulaView extends javax.swing.JPanel {
         this.allTopicos = topicoController.getAllTopicos();
         for(Topico t : allTopicos) allTopicosModel.addElement(t.getDescricao());
         
-        this.disciplinaController = new DisciplinaController(new DisciplinaDAO());
+        this.disciplinaController = new DisciplinaController(new DisciplinaDAOMySQL());
         this.allDisciplinas = disciplinaController.getAll();
         this.disciplinasModel = new DefaultComboBoxModel<>();
         this.disciplina.setModel(disciplinasModel);
@@ -77,7 +77,12 @@ public class AdicionarAulaView extends javax.swing.JPanel {
             disciplinasModel.addElement(d.getDescricao());
         }
         
-        professorController = new ProfessorController(new AulaDAO(), new TopicoDAO(), new UsuarioDAO(), new DisciplinaDAO(), new ContratoDAO());
+        professorController = new ProfessorController(
+                new AulaDAOMySQL(),
+                new TopicoDAOMySQL(),
+                new UsuarioDAOMySQL(),
+                new DisciplinaDAOMySQL(),
+                new ContratoDAOMySQL());
         
         this.valorInvalido.setText("");
         this.topicoInvalido.setText("");

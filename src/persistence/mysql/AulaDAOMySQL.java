@@ -6,6 +6,7 @@ import persistence.interfaces.ITopicoAula;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AulaDAOMySQL implements IAulaDAO {
@@ -41,9 +42,9 @@ public class AulaDAOMySQL implements IAulaDAO {
             ps.setString ( 4 , aula.getDisciplina ( ).getCodDisciplina ( ) );
             ps.setString ( 5 , aula.getProfessor ( ).getUsername ( ) );
 
-            int i = ps.executeUpdate ( );
+             ps.executeUpdate ( );
             for ( int k = 0 ; k < aula.getTopicos ( ).size ( ) ; k++ ) {
-                topicoAulaDAOMySQL.addTopicoAula ( aula.getTopicos ( ).get ( i ).getId ( ) , aula.getCodAula ( ) );
+                topicoAulaDAOMySQL.addTopicoAula ( aula.getTopicos ( ).get ( k ).getId ( ) , aula.getCodAula ( ) );
             }
         } catch ( SQLException e ) {
             e.printStackTrace ( );
@@ -182,7 +183,6 @@ public class AulaDAOMySQL implements IAulaDAO {
 
 
                 aulas.add ( aula );
-                System.out.println ( aulas.size ( ) );
 
             }
 
@@ -215,4 +215,5 @@ public class AulaDAOMySQL implements IAulaDAO {
         }
 
     }
+
 }

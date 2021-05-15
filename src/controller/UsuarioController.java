@@ -39,7 +39,6 @@ public class UsuarioController {
 
     public Usuario getUser(String username) throws UsuarioNaoEncontradoException {
         Usuario usuario = usuarioDAO.getUser(username);
-        System.out.println(usuario.getUsername());
         if (usuario == null) throw new UsuarioNaoEncontradoException("Usuario nao encontrado!");
         return usuario;
     }
@@ -53,7 +52,12 @@ public class UsuarioController {
         List<Usuario> usuarios = usuarioDAO.getAllUser();
         
         for (Usuario usuario : usuarios) {
-            if (usuario.getTipoUsuario() == 1) professores.add((Professor) usuario);
+            Professor professor= new Professor(usuario.getUsername(),
+                    usuario.getNome(),
+                    usuario.getFormacao() ,
+                    usuario.getDataNascimento(),
+                    usuario.getDescricao());
+            if (usuario.getTipoUsuario() == 1) professores.add(professor);
         }
         
         return professores;

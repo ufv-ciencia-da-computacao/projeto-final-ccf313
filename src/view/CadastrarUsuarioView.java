@@ -7,6 +7,9 @@ package view;
 
 import controller.UsuarioController;
 import exceptions.UsernameNaoUnico;
+import persistence.mysql.AvaliacaoDAOMySQL;
+import persistence.mysql.UsuarioDAOMySQL;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -16,8 +19,6 @@ import java.awt.event.ItemListener;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
-import persistence.local.AvaliacaoDAO;
-import persistence.local.UsuarioDAO;
 
 /**
  *
@@ -45,7 +46,7 @@ public class CadastrarUsuarioView extends javax.swing.JPanel {
     public CadastrarUsuarioView(JFrame context) {
         initComponents();
         this.context = context;
-        this.usuarioController = new UsuarioController(new UsuarioDAO(), new AvaliacaoDAO());
+        this.usuarioController = new UsuarioController(new UsuarioDAOMySQL(), new AvaliacaoDAOMySQL());
         
         this.emailInvalid.setText("");
         this.dataInvalida.setText("");

@@ -6,11 +6,10 @@
 package view;
 
 import controller.UsuarioController;
-import java.util.Date;
 import javax.swing.JFrame;
 import model.Usuario;
-import persistence.local.AvaliacaoDAO;
-import persistence.local.UsuarioDAO;
+import persistence.mysql.AvaliacaoDAOMySQL;
+import persistence.mysql.UsuarioDAOMySQL;
 
 /**
  *
@@ -28,16 +27,17 @@ public class LoginView extends javax.swing.JPanel {
     public LoginView(JFrame context) {
         initComponents();
         this.context = context;
-        this.usuarioController = new UsuarioController(new UsuarioDAO(), new AvaliacaoDAO());
+        this.usuarioController = new UsuarioController(new UsuarioDAOMySQL(), new AvaliacaoDAOMySQL());
         this.loginFailed.setVisible(false);
         
         // remove this
-        try {
-            this.usuarioController.addUser("a", "a", "a", new Date(), "auto descrição", 0);
-            this.usuarioController.addUser("b", "b", "b", new Date(), "descrição de b", 1);
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
+//        try {
+//            this.usuarioController.addUser("username", "nome", "formação",
+//                    new Date(1999-120,3-1,25), "auto descrição", 0);
+//            //this.usuarioController.addUser("b", "b", "b", new Date(), "descrição de b", 1);
+//        } catch(Exception e) {
+//            System.out.println(e.getMessage());
+//        }
     }
 
     /**
