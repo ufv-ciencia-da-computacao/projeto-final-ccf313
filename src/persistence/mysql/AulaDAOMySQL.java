@@ -95,8 +95,11 @@ public class AulaDAOMySQL implements IAulaDAO {
                 Usuario userProfessor = usuarioDAOMySQL.getUser ( usernameProfessor );
                 Disciplina disciplina = disciplinaDAOMySQL.getDisciplina ( codDisciplina );
 
-                Professor professor = new Professor ( userProfessor.getUsername ( ) , userProfessor.getNome ( ) , userProfessor.getFormacao ( ) ,
-                        userProfessor.getDataNascimento ( ) , userProfessor.getDescricao ( ) , userProfessor.getTipoUsuario ( ) );
+                Professor professor = new Professor ( userProfessor.getUsername ( ) ,
+                        userProfessor.getNome ( ) ,
+                        userProfessor.getFormacao ( ) ,
+                        userProfessor.getDataNascimento ( ) ,
+                        userProfessor.getDescricao ( )  );
 
                 ArrayList < Topico > topicos = topicoAulaDAOMySQL.getTopicosByAula ( codAula );
                 return new Aula ( codAula , topicos , professor , valorHora , disciplina , descricao );
@@ -140,8 +143,7 @@ public class AulaDAOMySQL implements IAulaDAO {
                         userProfessor.getNome ( ) ,
                         userProfessor.getFormacao ( ) ,
                         userProfessor.getDataNascimento ( ) ,
-                        userProfessor.getDescricao ( ) ,
-                        userProfessor.getTipoUsuario ( ) );
+                        userProfessor.getDescricao ( ) );
 
                 ArrayList < Topico > topicos = topicoAulaDAOMySQL.getTopicosByAula ( codAula );
                 Aula aula = new Aula ( codAula ,

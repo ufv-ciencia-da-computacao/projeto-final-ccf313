@@ -21,7 +21,7 @@ public class TopicoDAO implements ITopicoDAO {
 
     @Override
     public List<Topico> getAllTopicos() {
-        return new ArrayList<Topico>(localInstance.topicos.values());
+        return new ArrayList<>(localInstance.topicos.values());
     }
 
     @Override
@@ -29,8 +29,5 @@ public class TopicoDAO implements ITopicoDAO {
         return localInstance.topicos.get(id);
     }
 
-    @Override
-    public void deleteTopico(int id) {
-        localInstance.topicos.remove(id);
-    }
+
 }
