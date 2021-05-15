@@ -4,17 +4,33 @@
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="menu">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="jMenu1">
+        <Menu class="javax.swing.JMenu" name="acoes">
           <Properties>
             <Property name="text" type="java.lang.String" value="A&#xe7;&#xf5;es"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="paginaInicial">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Pagina Inicial"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="paginaInicialActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="adicionarAula">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Adicionar Aula"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adicionarAulaActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="contratosPendentes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Contratos Pendentes"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="contratosPendentesActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

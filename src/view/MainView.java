@@ -74,8 +74,10 @@ public class MainView extends javax.swing.JFrame {
         
         if(user.getTipoUsuario() == 0) {
             this.adicionarAula.setEnabled(false);
+            this.contratosPendentes.setEnabled(false);
         } else {
             this.adicionarAula.setEnabled(true);
+            this.contratosPendentes.setEnabled(true);
         }
     }
     
@@ -86,43 +88,13 @@ public class MainView extends javax.swing.JFrame {
         this.revalidate();
     }
     
-    void updateComponents() {
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(700, 450));
-        setResizable(false);
-
-        contentPanel.setMaximumSize(new java.awt.Dimension(700, 400));
-        contentPanel.setMinimumSize(new java.awt.Dimension(700, 400));
-        contentPanel.setPreferredSize(new java.awt.Dimension(700, 400));
-        contentPanel.setLayout(new javax.swing.OverlayLayout(contentPanel));
-
-        jMenu1.setText("Opções");
-
-        adicionarAula.setText("Adicionar Aula");
-        adicionarAula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adicionarAulaActionPerformed(evt);
-            }
-        });
-        jMenu1.add(adicionarAula);
-
-        menu.add(jMenu1);
-
-        setJMenuBar(menu);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        pack();
+    public void abrirNotificacoesPendentesView() {
+        JPanel view  = new ContratosPendentesView(this, loggedUser);
+        
+        this.setContentPane(view);
+        this.revalidate();
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -134,16 +106,16 @@ public class MainView extends javax.swing.JFrame {
 
         contentPanel = new javax.swing.JPanel();
         menu = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        acoes = new javax.swing.JMenu();
+        paginaInicial = new javax.swing.JMenuItem();
         adicionarAula = new javax.swing.JMenuItem();
+        contratosPendentes = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         perfil = new javax.swing.JMenuItem();
         sair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(700, 450));
         setMinimumSize(new java.awt.Dimension(700, 450));
-        setPreferredSize(new java.awt.Dimension(700, 450));
         setResizable(false);
 
         contentPanel.setMaximumSize(new java.awt.Dimension(700, 400));
@@ -151,7 +123,15 @@ public class MainView extends javax.swing.JFrame {
         contentPanel.setPreferredSize(new java.awt.Dimension(700, 400));
         contentPanel.setLayout(new javax.swing.OverlayLayout(contentPanel));
 
-        jMenu1.setText("Ações");
+        acoes.setText("Ações");
+
+        paginaInicial.setText("Pagina Inicial");
+        paginaInicial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paginaInicialActionPerformed(evt);
+            }
+        });
+        acoes.add(paginaInicial);
 
         adicionarAula.setText("Adicionar Aula");
         adicionarAula.addActionListener(new java.awt.event.ActionListener() {
@@ -159,9 +139,17 @@ public class MainView extends javax.swing.JFrame {
                 adicionarAulaActionPerformed(evt);
             }
         });
-        jMenu1.add(adicionarAula);
+        acoes.add(adicionarAula);
 
-        menu.add(jMenu1);
+        contratosPendentes.setText("Contratos Pendentes");
+        contratosPendentes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contratosPendentesActionPerformed(evt);
+            }
+        });
+        acoes.add(contratosPendentes);
+
+        menu.add(acoes);
 
         jMenu2.setText("Conta");
 
@@ -211,6 +199,14 @@ public class MainView extends javax.swing.JFrame {
         abrirPerfilUsuarioView();
     }//GEN-LAST:event_perfilActionPerformed
 
+    private void contratosPendentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contratosPendentesActionPerformed
+        abrirNotificacoesPendentesView();
+    }//GEN-LAST:event_contratosPendentesActionPerformed
+
+    private void paginaInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paginaInicialActionPerformed
+        abrirPaginaInicialView(loggedUser);
+    }//GEN-LAST:event_paginaInicialActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -247,11 +243,13 @@ public class MainView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu acoes;
     private javax.swing.JMenuItem adicionarAula;
     private javax.swing.JPanel contentPanel;
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem contratosPendentes;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar menu;
+    private javax.swing.JMenuItem paginaInicial;
     private javax.swing.JMenuItem perfil;
     private javax.swing.JMenuItem sair;
     // End of variables declaration//GEN-END:variables

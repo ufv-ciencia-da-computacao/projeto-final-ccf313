@@ -22,7 +22,7 @@ public class AlunoController {
         this.aulaDAO = aulaDAO;
     }
 
-    List<Contrato> getContratosByEtapa(String username, ContratoEtapa etapa) throws ContratoEtapaNaoEncontrada, UsuarioNaoEncontradoException {
+    public List<Contrato> getContratosByEtapa(String username, ContratoEtapa etapa) throws ContratoEtapaNaoEncontrada, UsuarioNaoEncontradoException {
         Usuario usuario = usuarioDAO.getUser(username);
         if (usuario == null) throw new UsuarioNaoEncontradoException("Usuario não encontrado!");
         List<Contrato> contratos = contratoDAO.getAllContratosByAlunoAndEtapa(username, etapa);
@@ -30,7 +30,7 @@ public class AlunoController {
         return contratos;
     }
 
-    void negociarAula(String username, String aulaCod, Date dataComeco, Date dataFinal) throws UsuarioNaoEncontradoException, AulaNaoEncontrada {
+    public void negociarAula(String username, String aulaCod, Date dataComeco, Date dataFinal) throws UsuarioNaoEncontradoException, AulaNaoEncontrada {
         Aluno aluno = (Aluno) usuarioDAO.getUser(username);
 
         if (aluno == null) {
