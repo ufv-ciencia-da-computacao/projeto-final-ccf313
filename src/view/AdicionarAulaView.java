@@ -74,7 +74,7 @@ public class AdicionarAulaView extends javax.swing.JPanel {
         this.disciplinasModel = new DefaultComboBoxModel<>();
         this.disciplina.setModel(disciplinasModel);
         for(Disciplina d : allDisciplinas) {
-            disciplinasModel.addElement(d.getDescricao());
+            disciplinasModel.addElement(d.getNome());
         }
         
         professorController = new ProfessorController(

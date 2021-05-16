@@ -25,15 +25,14 @@ public class UsuarioController {
     }
 
     public void addUser(String username, String nome, String formacao, Date data_nascimento, String descricao, int tipoDeUsuario) throws UsernameNaoUnico {
-        try {
-            getUser(username);
-            throw new UsernameNaoUnico("Um usuario já foi cadastrado com o mesmo username!"); // errado
-        } catch(UsuarioNaoEncontradoException e) {
+        if(usuarioDAO.getUser(username) == null) {
             if(tipoDeUsuario == 1) {
                 usuarioDAO.addUser(new Professor(username, nome, formacao, data_nascimento, descricao));
             } else {
                 usuarioDAO.addUser(new Aluno(username, nome, formacao, data_nascimento, descricao));    
             }
+        } else {
+            throw new UsernameNaoUnico("Nome de Usuário já utilizado");
         }
     }
 

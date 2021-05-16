@@ -35,6 +35,18 @@ public class ContratoDAO implements IContratoDAO {
     }
 
     @Override
+    public Contrato getContratoByAlunoAndAula(String username, String codAula) {
+        List<Contrato> contratos = new ArrayList<Contrato>();
+        for (Map.Entry<String, Contrato> entry: localDatabase.contratos.entrySet()) {
+            Contrato c = entry.getValue();
+            if (c.getAluno().getUsername().equals(username) && c.getAula().getCodAula().equals(codAula)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public List<Contrato> getAllContratosByProfessor(String username) {
         List<Contrato> contratos = new ArrayList<Contrato>();
         for (Map.Entry<String, Contrato> entry: localDatabase.contratos.entrySet()) {
