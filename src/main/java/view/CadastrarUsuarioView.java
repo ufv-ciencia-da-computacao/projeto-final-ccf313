@@ -43,10 +43,10 @@ public class CadastrarUsuarioView extends javax.swing.JPanel {
      * Creates new form CadastrarUsuarioView
      * @param context
      */
-    public CadastrarUsuarioView(JFrame context) {
+    public CadastrarUsuarioView(JFrame context, UsuarioController usuarioController) {
         initComponents();
         this.context = context;
-        this.usuarioController = new UsuarioController(new UsuarioDAOMySQL(), new AvaliacaoDAOMySQL());
+        this.usuarioController = usuarioController;
         
         this.emailInvalid.setText("");
         this.dataInvalida.setText("");

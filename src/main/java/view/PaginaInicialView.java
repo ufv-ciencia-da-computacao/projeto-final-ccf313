@@ -19,10 +19,10 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.*;
 
-import model.Aula;
-import model.Disciplina;
-import model.Professor;
-import model.Topico;
+import model.*;
+import persistence.local.AulaDAO;
+import persistence.local.ContratoDAO;
+import persistence.local.UsuarioDAO;
 import persistence.mysql.*;
 
 
@@ -56,15 +56,18 @@ public class PaginaInicialView extends javax.swing.JPanel {
     /**
      * Creates new form PaginaInicialView
      */
-    public PaginaInicialView(JFrame context) {
+    public PaginaInicialView(JFrame context, FeedController feedController,
+                             UsuarioController usuarioController, TopicoController topicoController,
+                             DisciplinaController disciplinaController, AlunoController alunoController) {
         initComponents();
         this.context = context;
         modelTopicos = new DefaultListModel<>();
         
-        this.feedController = new FeedController(new AulaDAOMySQL(), new DisciplinaDAOMySQL());
-        this.usuarioController = new UsuarioController(new UsuarioDAOMySQL(), new AvaliacaoDAOMySQL());
-        this.topicoController = new TopicoController(new UsuarioDAOMySQL(), new TopicoDAOMySQL());
-        this.disciplinaController = new DisciplinaController(new DisciplinaDAOMySQL());
+        this.feedController = feedController;
+        this.usuarioController = usuarioController;
+        this.topicoController = topicoController;
+        this.disciplinaController = disciplinaController;
+        this.alunoController = alunoController;
 
         this.professores = (ArrayList<Professor>) usuarioController.getProfessores();
         this.disciplinas = (ArrayList<Disciplina>) disciplinaController.getAll();
@@ -90,8 +93,6 @@ public class PaginaInicialView extends javax.swing.JPanel {
         if(u.getTipoUsuario() == 1) {
             this.contratar.setEnabled(false);
         }
-        
-        this.alunoController = new AlunoController(new ContratoDAO(), new UsuarioDAO(), new AulaDAO());
     }
     
     private void updateAula(int index) {

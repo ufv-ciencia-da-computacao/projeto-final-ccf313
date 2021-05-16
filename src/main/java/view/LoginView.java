@@ -24,10 +24,10 @@ public class LoginView extends javax.swing.JPanel {
      * Creates new form Login
      * @param context
      */
-    public LoginView(JFrame context) {
+    public LoginView(JFrame context, UsuarioController usuarioController) {
         initComponents();
         this.context = context;
-        this.usuarioController = new UsuarioController(new UsuarioDAOMySQL(), new AvaliacaoDAOMySQL());
+        this.usuarioController = usuarioController;
         this.loginFailed.setVisible(false);
         
         // remove this

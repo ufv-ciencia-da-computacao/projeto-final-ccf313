@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import model.Contrato;
 import model.ContratoEtapa;
+import model.Professor;
 import model.Usuario;
 import persistence.local.AulaDAO;
 import persistence.local.AvaliacaoDAO;
@@ -20,6 +21,7 @@ import persistence.local.ContratoDAO;
 import persistence.local.DisciplinaDAO;
 import persistence.local.TopicoDAO;
 import persistence.local.UsuarioDAO;
+import persistence.mysql.*;
 
 /**
  *
@@ -36,13 +38,13 @@ public class ContratosPendentesView extends javax.swing.JPanel {
     /**
      * Creates new form ContratosPendentesView
      */
-    public ContratosPendentesView(JFrame context, Usuario user) {
+    public ContratosPendentesView(JFrame context, Usuario user,
+                                  ProfessorController professorController) {
         initComponents();
         this.context = context;
         this.user = user;
         this.index = 0;
-        this.professorController = new ProfessorController(new AulaDAO(), 
-                new TopicoDAO(), new UsuarioDAO(), new DisciplinaDAO(), new ContratoDAO());
+        this.professorController = professorController;
         try {
             this.allContratos = professorController.getContratosPendentes(user.getUsername());
         } catch(Exception e) {

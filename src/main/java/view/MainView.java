@@ -9,7 +9,11 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Stack;
 import javax.swing.JPanel;
+
+import controller.*;
 import model.Usuario;
+import persistence.interfaces.*;
+import persistence.mysql.*;
 
 /**
  *
@@ -19,6 +23,21 @@ public class MainView extends javax.swing.JFrame {
     
     private final Stack<JPanel> screen;
     private Usuario loggedUser;
+
+    private AlunoController alunoController;
+    private DisciplinaController disciplinaController;
+    private FeedController feedController;
+    private ProfessorController professorController;
+    private TopicoController topicoController;
+    private UsuarioController usuarioController;
+
+    private IAulaDAO aulaDAO;
+    private IAvaliacaoDAO avaliacaoDAO;
+    private IContratoDAO contratoDAO;
+    private IDisciplinaDAO disciplinaDAO;
+    private ITopicoAula topicoAula;
+    private ITopicoDAO topicoDAO;
+    private IUsuarioDAO usuarioDAO;
     
     /**
      * Creates new form MainView
@@ -26,18 +45,34 @@ public class MainView extends javax.swing.JFrame {
     public MainView() {
         initComponents();
         this.screen = new Stack<>();
-        
+
+        aulaDAO = new AulaDAOMySQL();
+        avaliacaoDAO = new AvaliacaoDAOMySQL();
+        contratoDAO = new ContratoDAOMySQL();
+        disciplinaDAO = new DisciplinaDAOMySQL();
+        topicoAula = new TopicoAulaDAOMySQL();
+        topicoDAO = new TopicoDAOMySQL();
+        usuarioDAO = new UsuarioDAOMySQL();
+
+        alunoController = new AlunoController(contratoDAO, usuarioDAO, aulaDAO);
+        disciplinaController = new DisciplinaController(disciplinaDAO);
+        feedController = new FeedController(aulaDAO, disciplinaDAO);
+        professorController = new ProfessorController(aulaDAO, topicoDAO, usuarioDAO, disciplinaDAO, contratoDAO);
+        topicoController = new TopicoController(usuarioDAO, topicoDAO);
+        usuarioController = new UsuarioController(usuarioDAO, avaliacaoDAO);
+
         abrirLoginView();
     }
     
     public void abrirCadastrarUsuarioView() {
-        JPanel view = new CadastrarUsuarioView(this);
+        JPanel view = new CadastrarUsuarioView(this, this.usuarioController);
         this.setContentPane(view);
         this.revalidate();
     }
     
     public void abrirAdicionarAulaView() {
-        JPanel view = new AdicionarAulaView(this, loggedUser);
+        JPanel view = new AdicionarAulaView(this, loggedUser, topicoController,
+                disciplinaController, professorController);
         // screen.push(view);
         this.setContentPane(view);
         this.revalidate();
@@ -45,7 +80,7 @@ public class MainView extends javax.swing.JFrame {
     
     private void abrirLoginView() {
         this.menu.setVisible(false);
-        JPanel view = new LoginView(this);
+        JPanel view = new LoginView(this, usuarioController);
         this.setContentPane(view);
         this.revalidate();
     }
@@ -53,7 +88,8 @@ public class MainView extends javax.swing.JFrame {
     public void voltar() {
         // screen.pop();
         // JPanel view = screen.peek();
-        JPanel view = new PaginaInicialView(this);
+        JPanel view = new PaginaInicialView(this, feedController, usuarioController,
+                topicoController, disciplinaController, alunoController);
         this.setContentPane(view);
         this.revalidate();
     }
@@ -67,7 +103,8 @@ public class MainView extends javax.swing.JFrame {
     public void abrirPaginaInicialView(Usuario user) {
         this.menu.setVisible(true);
         this.loggedUser = user;
-        JPanel view = new PaginaInicialView(this);
+        JPanel view = new PaginaInicialView(this, feedController, usuarioController,
+                topicoController, disciplinaController, alunoController);
         // screen.add(view);
         this.setContentPane(view);
         this.revalidate();
@@ -89,7 +126,7 @@ public class MainView extends javax.swing.JFrame {
     }
     
     public void abrirNotificacoesPendentesView() {
-        JPanel view  = new ContratosPendentesView(this, loggedUser);
+        JPanel view  = new ContratosPendentesView(this, loggedUser, professorController);
         
         this.setContentPane(view);
         this.revalidate();

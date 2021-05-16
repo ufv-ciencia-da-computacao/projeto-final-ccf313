@@ -91,6 +91,11 @@ public class ContratoDAOMySQL implements IContratoDAO {
     }
 
     @Override
+    public Contrato getContratoByAlunoAndAula(String username, String codAula) {
+        return null;
+    }
+
+    @Override
     public List < Contrato > getAllContratosByProfessor ( String username ) {
         Connection             connection = ConnectionFactory.getConnection ( );
         ArrayList < Contrato > contratos  = new ArrayList<>( );
