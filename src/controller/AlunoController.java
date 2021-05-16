@@ -2,6 +2,7 @@ package controller;
 
 import exceptions.AulaNaoEncontrada;
 import exceptions.ContratoEtapaNaoEncontrada;
+import exceptions.ContratoJaExisteException;
 import exceptions.UsuarioNaoEncontradoException;
 import model.*;
 import persistence.interfaces.IAulaDAO;
@@ -30,7 +31,7 @@ public class AlunoController {
         return contratos;
     }
 
-    public void negociarAula(String username, String aulaCod, Date dataComeco, Date dataFinal) throws UsuarioNaoEncontradoException, AulaNaoEncontrada {
+    public void negociarAula(String username, String aulaCod, Date dataComeco, Date dataFinal) throws UsuarioNaoEncontradoException, AulaNaoEncontrada, ContratoJaExisteException {
         Aluno aluno = (Aluno) usuarioDAO.getUser(username);
 
         if (aluno == null) {
@@ -40,7 +41,11 @@ public class AlunoController {
         Aula aula = aulaDAO.getAula(aulaCod);
 
         if (aula == null) throw new AulaNaoEncontrada("Aula não encontrada!");
-
+        
+        if(contratoDAO.getContratoByAlunoAndAula(username, aulaCod) != null) {
+            throw new ContratoJaExisteException();
+        }
+        
         Contrato contrato = new Contrato(aluno, aula, dataComeco, dataFinal);
 
         contratoDAO.submitContrato(contrato);

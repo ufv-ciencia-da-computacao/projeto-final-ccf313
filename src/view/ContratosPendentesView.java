@@ -65,7 +65,7 @@ public class ContratosPendentesView extends javax.swing.JPanel {
             this.rejeitar.setEnabled(true);
             
             this.nomeAluno.setText(this.allContratos.get(index).getAluno().getNome());
-            this.disciplinaAula.setText(this.allContratos.get(index).getAluno().getNome());
+            this.disciplinaAula.setText(this.allContratos.get(index).getAula().getDisciplina().getNome());
         }
         
         if(index > 0) {
@@ -223,6 +223,7 @@ public class ContratosPendentesView extends javax.swing.JPanel {
                 this.allContratos.get(index).getCodContrato(), ContratoEtapa.ACEITO);
         
         this.allContratos.remove(index);
+        index = Math.min(index, allContratos.size()-1);
         updateView();
     }//GEN-LAST:event_aceitarActionPerformed
 
@@ -231,6 +232,7 @@ public class ContratosPendentesView extends javax.swing.JPanel {
                 this.allContratos.get(index).getCodContrato(), ContratoEtapa.DECLINADO);
         
         this.allContratos.remove(index);
+        index = Math.min(index, allContratos.size()-1);
         updateView();
     }//GEN-LAST:event_rejeitarActionPerformed
 

@@ -66,8 +66,8 @@ public class MainView extends javax.swing.JFrame {
     
     public void abrirPaginaInicialView(Usuario user) {
         this.menu.setVisible(true);
-        JPanel view = new PaginaInicialView(this);
         this.loggedUser = user;
+        JPanel view = new PaginaInicialView(this);
         // screen.add(view);
         this.setContentPane(view);
         this.revalidate();
@@ -93,6 +93,10 @@ public class MainView extends javax.swing.JFrame {
         
         this.setContentPane(view);
         this.revalidate();
+    }
+    
+    public Usuario getLoggedUser() {
+        return this.loggedUser;
     }
     
     /**

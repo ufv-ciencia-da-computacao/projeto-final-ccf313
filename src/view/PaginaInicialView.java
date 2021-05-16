@@ -5,12 +5,14 @@
  */
 package view;
 
+import controller.AlunoController;
 import controller.DisciplinaController;
 import controller.FeedController;
 import controller.TopicoController;
 import controller.UsuarioController;
 import exceptions.DisciplinaNaoEncontrada;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +23,7 @@ import model.Aula;
 import model.Disciplina;
 import model.Professor;
 import model.Topico;
+import model.Usuario;
 import persistence.local.*;
 
 /**
@@ -47,6 +50,7 @@ public class PaginaInicialView extends javax.swing.JPanel {
     private final UsuarioController usuarioController;
     private final TopicoController topicoController;
     private final DisciplinaController disciplinaController;
+    private final AlunoController alunoController;
     int index = 0;
     
     /**
@@ -81,6 +85,13 @@ public class PaginaInicialView extends javax.swing.JPanel {
         
         updateAula(this.index);
         jLabel16.setVisible(false);
+        
+        Usuario u = ((MainView) context).getLoggedUser();
+        if(u.getTipoUsuario() == 1) {
+            this.contratar.setEnabled(false);
+        }
+        
+        this.alunoController = new AlunoController(new ContratoDAO(), new UsuarioDAO(), new AulaDAO());
     }
     
     private void updateAula(int index) {
@@ -490,7 +501,12 @@ public class PaginaInicialView extends javax.swing.JPanel {
     }//GEN-LAST:event_resetarActionPerformed
 
     private void contratarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contratarActionPerformed
-        // TODO add your handling code here:
+        Usuario u = ((MainView) context).getLoggedUser();
+        try {
+            this.alunoController.negociarAula(u.getUsername(), aulasMostradas.get(index).getCodAula(), new Date(), new Date());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_contratarActionPerformed
 
     private void anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorActionPerformed
