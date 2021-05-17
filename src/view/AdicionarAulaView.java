@@ -74,7 +74,7 @@ public class AdicionarAulaView extends javax.swing.JPanel {
         this.disciplinasModel = new DefaultComboBoxModel<>();
         this.disciplina.setModel(disciplinasModel);
         for(Disciplina d : allDisciplinas) {
-            disciplinasModel.addElement(d.getDescricao());
+            disciplinasModel.addElement(d.getNome());
         }
         
         professorController = new ProfessorController(
@@ -282,13 +282,14 @@ public class AdicionarAulaView extends javax.swing.JPanel {
             if(topicosID.isEmpty()) this.topicoInvalido.setText(TOPICO_INVALIDO);
             valor = Double.parseDouble(this.valor.getText());
             if(!topicosID.isEmpty()) {
-                professorController.addAula(user.getUsername(), allDisciplinas.get(indexDisciplina).getNome(), valor, topicosID, this.descricao.getText());
+                professorController.addAula(user.getUsername(), allDisciplinas.get(indexDisciplina).getCodDisciplina(), valor, topicosID, this.descricao.getText());
                 ((MainView) context).abrirPaginaInicialView(user);
             }
         } catch(DisciplinaNaoEncontrada e) {
             System.out.println(e.getMessage());
         } catch(Exception e) {
             valorInvalido.setText(VALOR_INVALIDO);
+            System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_salvarActionPerformed
     

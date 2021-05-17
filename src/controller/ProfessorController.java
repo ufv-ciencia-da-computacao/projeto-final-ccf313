@@ -35,8 +35,15 @@ public class ProfessorController {
         Disciplina dd = disciplinaDAO.getDisciplina(codDisciplina);
         if (dd == null) throw new DisciplinaNaoEncontrada("Disciplina nao encontrada!");
 
-        Professor prof = (Professor) usuarioDAO.getUser(username);
-        if (prof == null) throw new UsuarioNaoEncontradoException("Usuario nao encontrado!");
+        Usuario usuario= usuarioDAO.getUser(username);
+        if (usuario == null) throw new UsuarioNaoEncontradoException("Usuario nao encontrado!");
+        Professor prof = new Professor(usuario.getUsername(),
+                usuario.getNome(),
+                usuario.getFormacao() ,
+                usuario.getDataNascimento(),
+                usuario.getDescricao()) ;
+
+
 
         Aula a = new Aula(topicos, prof, valorHora, dd, descricao);
 
