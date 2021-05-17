@@ -71,6 +71,8 @@ public class CadastrarUsuarioView extends javax.swing.JPanel {
         this.btnGroup.add(btnAluno);
         this.btnGroup.add(btnProfessor);
         this.btnAluno.setSelected(true);
+        
+        academic.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EM incompleto", "EM completo", "Graduação", "Mestrado", "Doutorado" }));
     }
 
     /**
@@ -132,6 +134,11 @@ public class CadastrarUsuarioView extends javax.swing.JPanel {
 
         academic.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         academic.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        academic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                academicActionPerformed(evt);
+            }
+        });
 
         save.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         save.setText("Salvar");
@@ -200,7 +207,6 @@ public class CadastrarUsuarioView extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(cancel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(save))
@@ -340,6 +346,10 @@ public class CadastrarUsuarioView extends javax.swing.JPanel {
     private void btnAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlunoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAlunoActionPerformed
+
+    private void academicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_academicActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_academicActionPerformed
     
     private boolean checkData() {
         if(selectDay.getSelectedIndex() == 0 || 
