@@ -79,4 +79,11 @@ public class ProfessorController {
 
         return contratoDAO.getAllContratosByProfessorAndEtapa(username, ContratoEtapa.NEGOCIACAO);
     }
+    
+    public List<Contrato> getContratosAceitos(String username) throws UsuarioNaoEncontradoException {
+        Usuario usuario = usuarioDAO.getUser(username);
+        if (usuario == null) throw new UsuarioNaoEncontradoException("Usuario nao encontrado!");
+
+        return contratoDAO.getAllContratosByProfessorAndEtapa(username, ContratoEtapa.ACEITO);
+    }
 }

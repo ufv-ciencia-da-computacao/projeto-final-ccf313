@@ -132,6 +132,13 @@ public class MainView extends javax.swing.JFrame {
         this.revalidate();
     }
     
+    public void abrirNotificacoesAceitasView() {
+        JPanel view  = new ContratosAceitosView(this, loggedUser);
+        
+        this.setContentPane(view);
+        this.revalidate();
+    }
+    
     public Usuario getLoggedUser() {
         return this.loggedUser;
     }
@@ -151,6 +158,7 @@ public class MainView extends javax.swing.JFrame {
         paginaInicial = new javax.swing.JMenuItem();
         adicionarAula = new javax.swing.JMenuItem();
         contratosPendentes = new javax.swing.JMenuItem();
+        contratosAceitos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         perfil = new javax.swing.JMenuItem();
         sair = new javax.swing.JMenuItem();
@@ -189,6 +197,14 @@ public class MainView extends javax.swing.JFrame {
             }
         });
         acoes.add(contratosPendentes);
+
+        contratosAceitos.setText("Contratos Aceitos");
+        contratosAceitos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contratosAceitosActionPerformed(evt);
+            }
+        });
+        acoes.add(contratosAceitos);
 
         menu.add(acoes);
 
@@ -248,6 +264,10 @@ public class MainView extends javax.swing.JFrame {
         abrirPaginaInicialView(loggedUser);
     }//GEN-LAST:event_paginaInicialActionPerformed
 
+    private void contratosAceitosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contratosAceitosActionPerformed
+        abrirNotificacoesAceitasView();
+    }//GEN-LAST:event_contratosAceitosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -287,6 +307,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenu acoes;
     private javax.swing.JMenuItem adicionarAula;
     private javax.swing.JPanel contentPanel;
+    private javax.swing.JMenuItem contratosAceitos;
     private javax.swing.JMenuItem contratosPendentes;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar menu;
