@@ -47,9 +47,9 @@ public class LocalDatabaseSingleton {
         Disciplina mat = new Disciplina("Cálculo 1", "Limites, Derivadas e Integrais");
         Disciplina fis = new Disciplina("Física", "Qualquer tópico de física");
         
-        disciplinas.put(est.getNome(), est);
-        disciplinas.put(mat.getNome(), mat);
-        disciplinas.put(fis.getNome(), fis);
+        disciplinas.put(est.getCodDisciplina(), est);
+        disciplinas.put(mat.getCodDisciplina(), mat);
+        disciplinas.put(fis.getCodDisciplina(), fis);
     }
     
     private void mockUsuarios() {

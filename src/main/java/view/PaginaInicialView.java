@@ -432,7 +432,7 @@ public class PaginaInicialView extends javax.swing.JPanel {
 
         if (disciplina != null) {
             try {
-                arrAulas = (ArrayList<Aula>) this.feedController.getAulaPorDisciplina(disciplina.getNome());
+                arrAulas = (ArrayList<Aula>) this.feedController.getAulaPorDisciplina(disciplina.getCodDisciplina());
             } catch (DisciplinaNaoEncontrada ex) {
                 Logger.getLogger(PaginaInicialView.class.getName()).log(Level.SEVERE, null, ex);
             }

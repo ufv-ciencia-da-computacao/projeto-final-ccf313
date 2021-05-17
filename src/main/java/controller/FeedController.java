@@ -35,6 +35,6 @@ public class FeedController {
     public List<Aula> getAulaPorDisciplina(String nome) throws DisciplinaNaoEncontrada {
         Disciplina disciplina = disciplinaDAO.getDisciplina(nome);
         if (disciplina == null) throw new DisciplinaNaoEncontrada("Disciplina nao encontrada!");
-        return aulaDAO.getAulaByDisciplina(disciplina.getNome());
+        return aulaDAO.getAulaByDisciplina(disciplina.getCodDisciplina());
     }
 }
