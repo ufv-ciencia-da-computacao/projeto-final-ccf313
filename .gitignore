@@ -12,6 +12,7 @@
 
 # Package Files #
 *.jar
+!projeto-final-ccf313.jar
 *.war
 *.nar
 *.ear
