@@ -118,7 +118,7 @@ public class CadastrarUsuarioView extends javax.swing.JPanel {
         jLabel1.setText("Nome:");
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel3.setText("Email:");
+        jLabel3.setText("Username:");
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel4.setText("Formação:");
@@ -168,7 +168,7 @@ public class CadastrarUsuarioView extends javax.swing.JPanel {
         dataInvalida.setText("Data inválida");
 
         emailInvalid.setForeground(new java.awt.Color(255, 0, 0));
-        emailInvalid.setText("Email já utilizado");
+        emailInvalid.setText("Username já utilizado");
 
         nomeInvalido.setForeground(new java.awt.Color(255, 0, 0));
         nomeInvalido.setText("Digite um nome");
@@ -211,12 +211,9 @@ public class CadastrarUsuarioView extends javax.swing.JPanel {
                                 .addComponent(cancel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(save))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
