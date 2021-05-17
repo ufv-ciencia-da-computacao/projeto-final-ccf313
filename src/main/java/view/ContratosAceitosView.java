@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+
+import model.Aluno;
 import model.Contrato;
 import model.ContratoEtapa;
 import model.Usuario;
@@ -41,14 +43,14 @@ public class ContratosAceitosView extends javax.swing.JPanel {
     /**
      * Creates new form ContratosPendentesView
      */
-    public ContratosAceitosView(JFrame context, Usuario user) {
+    public ContratosAceitosView(JFrame context, Usuario user,
+                                ProfessorController professorController, AlunoController alunoController) {
         initComponents();
         this.context = context;
         this.user = user;
         this.index = 0;
-        this.professorController = new ProfessorController(new AulaDAO(), 
-                new TopicoDAO(), new UsuarioDAO(), new DisciplinaDAO(), new ContratoDAO());
-        this.alunoController = new AlunoController(new ContratoDAO(), new UsuarioDAO(), new AulaDAO());
+        this.professorController = professorController;
+        this.alunoController = alunoController;
         
         if (this.user.getTipoUsuario() == 1) {
             try {

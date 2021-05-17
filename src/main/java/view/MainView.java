@@ -133,7 +133,7 @@ public class MainView extends javax.swing.JFrame {
     }
     
     public void abrirNotificacoesAceitasView() {
-        JPanel view  = new ContratosAceitosView(this, loggedUser);
+        JPanel view  = new ContratosAceitosView(this, loggedUser, professorController, alunoController);
         
         this.setContentPane(view);
         this.revalidate();
