@@ -73,7 +73,7 @@ public class ProfessorController {
        }
     }
 
-    public List<Contrato> verAulasPorEtapa(String username) throws UsuarioNaoEncontradoException {
+    public List<Contrato> getContratosPendentes(String username) throws UsuarioNaoEncontradoException {
         Usuario usuario = usuarioDAO.getUser(username);
         if (usuario == null) throw new UsuarioNaoEncontradoException("Usuario nao encontrado!");
 

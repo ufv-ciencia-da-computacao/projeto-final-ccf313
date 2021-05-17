@@ -51,15 +51,16 @@ public class AdicionarAulaView extends javax.swing.JPanel {
      * Creates new form AdicionarAulaView
      * @param context
      */
-    public AdicionarAulaView(JFrame context, Usuario user) {
+    public AdicionarAulaView(JFrame context, Usuario user,
+                             TopicoController topicoController, DisciplinaController disciplinaController,
+                             ProfessorController professorController) {
         initComponents();
         
         this.context = context;
         this.user = user;
         System.out.println(user.getUsername());
         this.topicosModel = new DefaultListModel();
-        this.topicoController = new TopicoController(new UsuarioDAOMySQL(),
-                new TopicoDAOMySQL());
+        this.topicoController = topicoController;
 
         this.topicos.setModel(topicosModel);
         this.topicosEscolhidos = new ArrayList<>();
@@ -69,7 +70,7 @@ public class AdicionarAulaView extends javax.swing.JPanel {
         this.allTopicos = topicoController.getAllTopicos();
         for(Topico t : allTopicos) allTopicosModel.addElement(t.getDescricao());
         
-        this.disciplinaController = new DisciplinaController(new DisciplinaDAOMySQL());
+        this.disciplinaController = disciplinaController;
         this.allDisciplinas = disciplinaController.getAll();
         this.disciplinasModel = new DefaultComboBoxModel<>();
         this.disciplina.setModel(disciplinasModel);
@@ -77,12 +78,7 @@ public class AdicionarAulaView extends javax.swing.JPanel {
             disciplinasModel.addElement(d.getNome());
         }
         
-        professorController = new ProfessorController(
-                new AulaDAOMySQL(),
-                new TopicoDAOMySQL(),
-                new UsuarioDAOMySQL(),
-                new DisciplinaDAOMySQL(),
-                new ContratoDAOMySQL());
+        this.professorController = professorController;
         
         this.valorInvalido.setText("");
         this.topicoInvalido.setText("");

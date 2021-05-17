@@ -1,11 +1,12 @@
+use tpfinalpoo;
 insert into disciplina(`codDisciplina`,`nome`,`descricao`) values ("MAF","Cálculo 1","Descrição Cálculo 1");
 insert into disciplina(`codDisciplina`,`nome`,`descricao`) values ("CFC","POO","Descrição POO");
 insert into disciplina(`codDisciplina`,`nome`,`descricao`) values ("ADF","Economia","Descrição Economia");
 
 insert into usuario(`nome`,`descricao`,`dataNascimento`,`formacao`,`username`,`tipoUsuario`)
- values ("Dener Vieira","Descrição Dener","2000-01-01","Ciência da Computação","dener",1);
+ values ("Dener Vieira","Descrição Dener","2000-10-07","Ciência da Computação","dener",1);
  insert into usuario(`nome`,`descricao`,`dataNascimento`,`formacao`,`username`,`tipoUsuario`)
- values ("Germano Barcelos","Descrição Germano","2001-03-25","Ciência da Computação","germano",0);
+ values ("Germano Barcelos","Descrição Germano","2001-03-26","Ciência da Computação","germano",0);
  insert into usuario(`nome`,`descricao`,`dataNascimento`,`formacao`,`username`,`tipoUsuario`)
  values ("Fabricio ","Descrição Fabricio","1978-05-03","Ciência da Computação","fabricio",1);
  insert into usuario(`nome`,`descricao`,`dataNascimento`,`formacao`,`username`,`tipoUsuario`)
