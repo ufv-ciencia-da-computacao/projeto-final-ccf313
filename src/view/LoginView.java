@@ -62,7 +62,7 @@ public class LoginView extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(700, 400));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel1.setText("Digite o email:");
+        jLabel1.setText("Digite o username:");
 
         username.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         username.addActionListener(new java.awt.event.ActionListener() {

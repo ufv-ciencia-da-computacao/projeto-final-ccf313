@@ -29,7 +29,6 @@ public class PerfilUsuarioView extends javax.swing.JPanel {
         this.context = context;
         
         this.name.setText(user.getNome());
-        this.email.setText(user.getUsername());
         this.formacao.setText(user.getFormacao());
         this.descricao.setText(user.getDescricao());
         if(user.getTipoUsuario() == 1) {
@@ -55,7 +54,6 @@ public class PerfilUsuarioView extends javax.swing.JPanel {
         avMedia += str.charAt(2);
         avMedia += " - ";
         for(int i=0; i<dec; i += 100) avMedia += "*";
-        this.avaliacao.setText(avMedia);
         
         
         this.dataNascimento.setText(user.getDataNascimento().getDate() + "/" 
@@ -75,12 +73,8 @@ public class PerfilUsuarioView extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         name = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        avaliacao = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         tipoDeUsuario = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        email = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         formacao = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -100,17 +94,9 @@ public class PerfilUsuarioView extends javax.swing.JPanel {
 
         name.setText("Node Do Usiario");
 
-        jLabel4.setText("Avaliação:");
-
-        avaliacao.setText("* * * * * ");
-
         jLabel6.setText("Usuário:");
 
         tipoDeUsuario.setText("Aluno");
-
-        jLabel8.setText("Email:");
-
-        email.setText("aaa@bbb.com");
 
         jLabel10.setText("Formação:");
 
@@ -146,19 +132,15 @@ public class PerfilUsuarioView extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel6)
-                                .addComponent(jLabel4)
                                 .addComponent(jLabel2)
                                 .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                                .addComponent(avaliacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(tipoDeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGap(60, 60, 60)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel8)
-                                .addComponent(email, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel10)
                                 .addComponent(formacao, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                                .addComponent(jLabel12)
-                                .addComponent(dataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(dataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel12)))
                         .addComponent(descricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
@@ -167,22 +149,16 @@ public class PerfilUsuarioView extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(name)
-                    .addComponent(email))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(avaliacao)
-                    .addComponent(formacao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(name))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(formacao)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel12))
@@ -190,7 +166,7 @@ public class PerfilUsuarioView extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tipoDeUsuario)
                     .addComponent(dataNascimento))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(60, 60, 60)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,19 +182,15 @@ public class PerfilUsuarioView extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel avaliacao;
     private javax.swing.JLabel dataNascimento;
     private javax.swing.JLabel descricao;
-    private javax.swing.JLabel email;
     private javax.swing.JLabel formacao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel name;
     private javax.swing.JLabel tipoDeUsuario;
     private javax.swing.JButton voltar;
