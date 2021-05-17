@@ -32,11 +32,19 @@ public class AlunoController {
     }
 
     public void negociarAula(String username, String aulaCod, Date dataComeco, Date dataFinal) throws UsuarioNaoEncontradoException, AulaNaoEncontrada, ContratoJaExisteException {
-        Aluno aluno = (Aluno) usuarioDAO.getUser(username);
-
-        if (aluno == null) {
+       Usuario usuario =  usuarioDAO.getUser(username);
+        if (usuario == null) {
             throw new UsuarioNaoEncontradoException("Usuario não encontrado!");
         }
+
+        Aluno aluno = new Aluno(usuario.getUsername(),
+                usuario.getNome() ,
+                usuario.getFormacao(),
+                usuario.getDataNascimento(),
+                usuario.getDescricao());
+
+
+
 
         Aula aula = aulaDAO.getAula(aulaCod);
 

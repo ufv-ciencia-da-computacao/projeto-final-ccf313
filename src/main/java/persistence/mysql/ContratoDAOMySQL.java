@@ -47,8 +47,8 @@ public class ContratoDAOMySQL implements IContratoDAO {
             ps.setString ( 1 , contrato.getAluno ( ).getUsername ( ) );
             ps.setString ( 2 , contrato.getAula ( ).getCodAula ( ) );
             ps.setString ( 3 , contrato.getCodContrato ( ) );
-            ps.setDate ( 4 , (Date) contrato.getDataFinal ( ) );
-            ps.setDate ( 5 , (Date) contrato.getDataComeco ( ) );
+            ps.setDate ( 4 ,  new java.sql.Date(contrato.getDataFinal().getTime()));
+            ps.setDate ( 5 , new java.sql.Date(contrato.getDataComeco().getTime()) );
             ps.setInt ( 6 , contrato.getEtapas ( ).getId ( ) );
             ps.executeUpdate ( );
         } catch ( SQLException e ) {

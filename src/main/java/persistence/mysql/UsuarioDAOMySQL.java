@@ -109,10 +109,6 @@ public class UsuarioDAOMySQL implements IUsuarioDAO {
         return null;
     }
 
-    public static void main(String[] args) {
-        UsuarioDAOMySQL usuarioDAOMySQL = new UsuarioDAOMySQL();
-        Usuario         usuario         = usuarioDAOMySQL.getUser("sdasdvvsv");
-        if(usuario==null) System.out.println("asda");
-    }
+
 
 }
